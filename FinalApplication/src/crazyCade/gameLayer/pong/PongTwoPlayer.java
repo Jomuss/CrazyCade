@@ -9,6 +9,7 @@ package crazyCade.gameLayer.pong;
 
 import processing.core.PApplet;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 
 
@@ -68,7 +69,16 @@ public class PongTwoPlayer extends PApplet{
         playerTwoSelector.gameOver();
         surface.setVisible(false);
     }
-     public void settings(){
+    private void playerOneWin(){
+       JOptionPane.showMessageDialog(frame, "Congratulations Player One, You Win!");
+       endGame();
+    }
+    private void playerTwoWin(){
+       JOptionPane.showMessageDialog(frame, "Congratulations Player Two, You Win!");
+       endGame();
+    }
+        
+    public void settings(){
          size(500, 400);
     }
 
@@ -77,7 +87,7 @@ public class PongTwoPlayer extends PApplet{
     }
     public void draw(){
         background(200, 200, 200);
-        if(playerTwoScore.score < 11 && PlayerScore.score < 11){
+        if(playerTwoScore.score < 1 && PlayerScore.score < 1){
             playerOnePaddle.padY = playerOnePaddle.getMove();
             playerTwoPaddle.padY = playerTwoPaddle.getMove();
 
@@ -96,7 +106,7 @@ public class PongTwoPlayer extends PApplet{
             text(playerTwoScore.score, 75, 30, 0);
             text(PlayerScore.score, 400, 30, 0);
         }
-        else if(playerTwoScore.score >= 11){
+        else if(playerTwoScore.score >= 1){
             textSize(35);
             fill(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256));
             text("Sorry, You Lose!", 0, height*1/2);
@@ -105,7 +115,7 @@ public class PongTwoPlayer extends PApplet{
             playerOnePaddle.gameOver();
             playerTwoPaddle.gameOver();
             dispose();
-            endGame();
+            playerTwoWin();
             
             
         }
@@ -118,7 +128,7 @@ public class PongTwoPlayer extends PApplet{
             playerOnePaddle.gameOver();
             playerTwoPaddle.gameOver();
             dispose();
-            endGame();
+            playerOneWin();
         }
         
         
