@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication.gameLayer.pong;
+package crazyCade.gameLayer.pong;
 
 
 
@@ -29,7 +29,7 @@ public class PongOnePlayer extends PApplet{
     boolean playingPong = true;
     PApplet inst = this;
     Random rand;
-    PlayerPaddle playerPaddle;
+    PlayerOnePaddle playerPaddle;
     AIPaddle AIpad;
     Ball ball;
     PongOnePlayerSelector selector;
@@ -53,7 +53,7 @@ public class PongOnePlayer extends PApplet{
         ball = new Ball();
         PlayerScore = new PlayerScore();
         AIScore = new AIScore();
-        playerPaddle = new PlayerPaddle(this);
+        playerPaddle = new PlayerOnePaddle(this);
 
         
 //        print(SerialHandler.list());
@@ -65,7 +65,7 @@ public class PongOnePlayer extends PApplet{
     }
     public void initialize(PongOnePlayerSelector inst){
 
-        PApplet.main("finalapplication.gameLayer.pong.PongOnePlayer");
+        PApplet.main("crazyCade.gameLayer.pong.PongOnePlayer");
 
     }
      public void settings(){

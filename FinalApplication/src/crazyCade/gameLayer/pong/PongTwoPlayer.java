@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication.gameLayer.pong;
+package crazyCade.gameLayer.pong;
 
 
 
@@ -23,12 +23,12 @@ public class PongTwoPlayer extends PApplet{
     boolean playingPong = true;
     PApplet inst = this;
     Random rand;
-    PlayerPaddle playerOnePaddle;
+    PlayerOnePaddle playerOnePaddle;
     PlayerTwoPaddle playerTwoPaddle;
     Ball ball;
-    PongTwoPlayerSelector selector;
+    static PongTwoPlayerSelector playerTwoSelector;
     PlayerScore PlayerScore;
-    AIScore AIScore;
+    AIScore playerTwoScore;
 
 //    private int ballX = 75, ballY = 75, ballDiameter = 30, ballRadius = 15;
 //    private int ballSpeedX = (rand.nextInt(2)+2), ballSpeedY = (rand.nextInt(2)-4);
@@ -46,21 +46,27 @@ public class PongTwoPlayer extends PApplet{
         playerTwoPaddle = new PlayerTwoPaddle(this);
         ball = new Ball();
         PlayerScore = new PlayerScore();
-        AIScore = new AIScore();
-        playerOnePaddle = new PlayerPaddle(this);
+        playerTwoScore = new AIScore();
+        playerOnePaddle = new PlayerOnePaddle(this);
 
         
 //        print(SerialHandler.list());
 //        myPort = new SerialHandler(this, SerialHandler.list()[0], 9600);
           
     }
-    public PongTwoPlayer(PongTwoPlayerSelector inst){
-        selector = inst;
+
+    public PongTwoPlayer(PongTwoPlayerSelector selector){
+       PApplet.main("crazyCade.gameLayer.pong.PongTwoPlayer");
+       playerTwoSelector = selector;
     }
-    public void initialize(PongTwoPlayerSelector inst){
+    public void initialize(PongTwoPlayerSelector selector){
 
-        PApplet.main("finalapplication.gameLayer.PongTwoPlayer");
+//        PApplet.main("crazyCade.gameLayer.pong.PongTwoPlayer");
 
+    }
+    private void endGame(){
+        playerTwoSelector.gameOver();
+        surface.setVisible(false);
     }
      public void settings(){
          size(500, 400);
@@ -71,7 +77,7 @@ public class PongTwoPlayer extends PApplet{
     }
     public void draw(){
         background(200, 200, 200);
-        if(AIScore.score < 11 && PlayerScore.score < 11){
+        if(playerTwoScore.score < 11 && PlayerScore.score < 11){
             playerOnePaddle.padY = playerOnePaddle.getMove();
             playerTwoPaddle.padY = playerTwoPaddle.getMove();
 
@@ -84,24 +90,22 @@ public class PongTwoPlayer extends PApplet{
             fill(PongTwoPlayerSelector.AIred, PongTwoPlayerSelector.AIgreen, PongTwoPlayerSelector.AIblue);
             rect(playerTwoPaddle.playerPadX, playerTwoPaddle.padY, playerTwoPaddle.padWidth, PongOnePlayerSelector.AIpadHeight);
 
-            ball.ballMovement(playerOnePaddle, playerTwoPaddle, height, width, AIScore, PlayerScore);
+            ball.ballMovement(playerOnePaddle, playerTwoPaddle, height, width, playerTwoScore, PlayerScore);
             textSize(32);
             fill(0,0,0);
-            text(AIScore.score, 75, 30, 0);
+            text(playerTwoScore.score, 75, 30, 0);
             text(PlayerScore.score, 400, 30, 0);
         }
-        else if(AIScore.score >= 11){
+        else if(playerTwoScore.score >= 11){
             textSize(35);
             fill(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256));
             text("Sorry, You Lose!", 0, height*1/2);
             textSize(50);
             text("Thanks for Playing!", 0, height*2/3);
-//            playerOnePaddle.gameOver();
-//            playerTwoPaddle.gameOver();
-            delay(3000);
+            playerOnePaddle.gameOver();
+            playerTwoPaddle.gameOver();
             dispose();
-            frame.setVisible(false);
-//            selector.setVisible(true);
+            endGame();
             
             
         }
@@ -111,10 +115,10 @@ public class PongTwoPlayer extends PApplet{
             text("Congratulations, You Win!", 0, height*1/2);
             textSize(50);
             text("Thanks for Playing!", 0, height*2/3);
-//            playerOnePaddle.gameOver();
-//            playerTwoPaddle.gameOver();
+            playerOnePaddle.gameOver();
+            playerTwoPaddle.gameOver();
             dispose();
-            selector.setVisible(true);
+            endGame();
         }
         
         
@@ -142,7 +146,7 @@ public class PongTwoPlayer extends PApplet{
 //        if(ballX > width){
 //            ballX = (int) (width*.5);
 //            ballSpeedX = -ballSpeedX;
-//            AIScore++;
+//            playerTwoScore++;
 //        }else if(ballX < 0){
 //            ballX = (int) (width*.5);
 //            ballSpeedX = -ballSpeedX;

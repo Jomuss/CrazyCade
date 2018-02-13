@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication.gameLayer.pong;
+package crazyCade.gameLayer.pong;
 
 import processing.core.PApplet;
-import static processing.core.PApplet.println;
 import processing.serial.*;
 /**
  *
  * @author Joe Moss
  */
-public class  PlayerPaddle extends PongPaddle{
+public class  PlayerOnePaddle extends PongPaddle{
     int playerPadX = 475, newByte, newY;
     PApplet instance;
     boolean started = false;
@@ -21,7 +20,7 @@ public class  PlayerPaddle extends PongPaddle{
     
     
 
-    public PlayerPaddle(PApplet inst){
+    public PlayerOnePaddle(PApplet inst){
         instance = inst;
 //        myPort = new Serial(instance, Serial.list()[0], 9600);
 //        myPort.write("PONG\n");

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication;
+package crazyCade;
 
-import finalapplication.gameLayer.pong.PongOnePlayerSelector;
-import finalapplication.gameLayer.pong.PongTwoPlayerSelector;
+import crazyCade.gameLayer.pong.PongOnePlayerSelector;
+import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,16 +23,14 @@ public class MainGUI extends javax.swing.JFrame {
         initComponents();
         pongOnePlayerWindow = new PongOnePlayerSelector();
         pongTwoPlayerWindow = new PongTwoPlayerSelector();
+        pongTwoPlayerWindow.getMainWindow(this);
         morseCode = new MorseCodeGUI();
 //        pongHandler = new PongOnePlayer();
   
     }
 
     
-    public void setGUIVis(boolean state){
-        this.setVisible(state);
-      
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +44,7 @@ public class MainGUI extends javax.swing.JFrame {
         Morse = new javax.swing.JButton();
         PongOnePlayer = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
 
         PongTwoPlayer.setText("Play Two Player Pong");
@@ -107,20 +105,19 @@ public class MainGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MorseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MorseActionPerformed
-        setGUIVis(false);
+        this.setVisible(false);
         morseCode.setVisible(true);
         morseCode.startPort();
     }//GEN-LAST:event_MorseActionPerformed
 
     private void PongTwoPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PongTwoPlayerActionPerformed
-//        setGUIVis(false);
-        this.enable(false);
+        this.setVisible(false);
         pongTwoPlayerWindow.setVisible(true);
 
     }//GEN-LAST:event_PongTwoPlayerActionPerformed
 
     private void PongOnePlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PongOnePlayerActionPerformed
-        setGUIVis(false);
+        this.setVisible(false);
         pongOnePlayerWindow.setVisible(true);
     }//GEN-LAST:event_PongOnePlayerActionPerformed
     

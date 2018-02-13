@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication.gameLayer.pong;
+package crazyCade.gameLayer.pong;
 
 import java.awt.Color;
 
@@ -13,14 +13,19 @@ import java.awt.Color;
  */
 public class PongTwoPlayerSelector extends javax.swing.JFrame {
     private PongTwoPlayer pongHandler;
+    private crazyCade.MainGUI mainGUI;
 
     public static String difficulty = "easy";
     public static int red = 255, green = 255, blue = 255, AIred = 255, AIgreen = 255, AIblue = 255, AIpadHeight = 50;
     /**
      * Creates new form PongSelector
      */
-    public PongTwoPlayerSelector() {
+    public PongTwoPlayerSelector(){
+       
         initComponents();
+    }
+    public void getMainWindow(crazyCade.MainGUI main){
+        mainGUI = main;
     }
 //    public static void setSelVis(PongOnePlayerSelector inst, boolean state){
 //        inst.setVisible(state);
@@ -30,7 +35,8 @@ public class PongTwoPlayerSelector extends javax.swing.JFrame {
 //        return this;
 //    }
     public void gameOver(){
-        this.setVisible(true);
+        mainGUI.setVisible(true);
+        mainGUI.toFront();
     }
     public static void enableWindow(PongTwoPlayerSelector selector){
         selector.setVisible(true);
@@ -64,8 +70,6 @@ public class PongTwoPlayerSelector extends javax.swing.JFrame {
         curColor = new javax.swing.JButton();
 
         jButton9.setText("jButton1");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         label2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         label2.setText("COLOR");
@@ -348,8 +352,8 @@ public class PongTwoPlayerSelector extends javax.swing.JFrame {
         pongHandler = new PongTwoPlayer(this);
         this.setVisible(false);
    //     pongHandler = new PongOnePlayer(this);
-        pongHandler.initialize(this);
-        
+//        pongHandler.initialize(this);
+//        
     }//GEN-LAST:event_beginActionPerformed
 
 

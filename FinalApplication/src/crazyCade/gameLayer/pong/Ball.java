@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalapplication.gameLayer.pong;
+package crazyCade.gameLayer.pong;
 import java.util.Random;
 /**
  *
@@ -15,7 +15,7 @@ public class Ball {
     int ballSpeedX = (rand.nextInt(2)+2), ballSpeedY = (rand.nextInt(2)-4);
     int red = rand.nextInt(256), green = rand.nextInt(256), blue = rand.nextInt(256);
     
-    void ballMovement(PlayerPaddle playerPaddle, AIPaddle AIpad, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
+    void ballMovement(PlayerOnePaddle playerPaddle, AIPaddle AIpad, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
         if(ballX > playerPaddle.playerPadX - 10 && ballX < playerPaddle.playerPadX + playerPaddle.padWidth){
             if(ballY >= playerPaddle.padY && ballY <= playerPaddle.padY + playerPaddle.padHeight){
                 if(ballSpeedX > 0)
@@ -53,7 +53,7 @@ public class Ball {
             PlayerScore.score++;
         }
     }
-        void ballMovement(PlayerPaddle playerPaddle, PlayerTwoPaddle playerTwoPaddle, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
+        void ballMovement(PlayerOnePaddle playerPaddle, PlayerTwoPaddle playerTwoPaddle, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
         if(ballX > playerPaddle.playerPadX - 10 && ballX < playerPaddle.playerPadX + playerPaddle.padWidth){
             if(ballY >= playerPaddle.padY && ballY <= playerPaddle.padY + playerPaddle.padHeight){
                 if(ballSpeedX > 0)
