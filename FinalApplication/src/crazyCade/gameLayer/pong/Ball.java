@@ -12,7 +12,7 @@ import java.util.Random;
 public class Ball {
     Random rand = new Random();
     int ballX = 75, ballY = 75, ballDiameter = 30, ballRadius = 15;
-    int ballSpeedX = (rand.nextInt(2)+2), ballSpeedY = (rand.nextInt(2)-4);
+    int ballSpeedX = (rand.nextInt(1)+4), ballSpeedY = (rand.nextInt(2)-4);
     int red = rand.nextInt(256), green = rand.nextInt(256), blue = rand.nextInt(256);
     
     void ballMovement(PlayerOnePaddle playerPaddle, AIPaddle AIpad, int height, int width, AIScore AIScore, PlayerScore PlayerScore){

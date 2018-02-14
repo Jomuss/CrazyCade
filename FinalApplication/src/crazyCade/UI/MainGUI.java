@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade;
+package crazyCade.UI;
 
 import crazyCade.gameLayer.pong.PongOnePlayerSelector;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
@@ -18,13 +18,12 @@ import java.util.logging.Logger;
 public class MainGUI extends javax.swing.JFrame {
      PongOnePlayerSelector pongOnePlayerWindow;
      PongTwoPlayerSelector pongTwoPlayerWindow;
-     MorseCodeGUI morseCode;
     public MainGUI() throws IOException {
         initComponents();
         pongOnePlayerWindow = new PongOnePlayerSelector();
         pongTwoPlayerWindow = new PongTwoPlayerSelector();
         pongTwoPlayerWindow.getMainWindow(this);
-        morseCode = new MorseCodeGUI();
+
 //        pongHandler = new PongOnePlayer();
   
     }
@@ -106,8 +105,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void MorseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MorseActionPerformed
         this.setVisible(false);
-        morseCode.setVisible(true);
-        morseCode.startPort();
+
     }//GEN-LAST:event_MorseActionPerformed
 
     private void PongTwoPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PongTwoPlayerActionPerformed
