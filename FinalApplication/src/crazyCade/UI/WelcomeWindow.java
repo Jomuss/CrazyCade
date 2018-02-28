@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,6 +15,7 @@ import java.awt.Graphics;
 public class WelcomeWindow extends javax.swing.JFrame {
     LoginWindow login;
     SignUpWindow signUp;
+    MainWindow main;
     /**
      * Creates new form WelcomeWindow
      */
@@ -117,7 +118,9 @@ public class WelcomeWindow extends javax.swing.JFrame {
 
     private void guestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestBtnActionPerformed
         // TODO add your handling code here:
-        System.out.print("Go to main window");
+        this.setVisible(false);
+        main = new MainWindow(true);
+        main.setVisible(true);
     }//GEN-LAST:event_guestBtnActionPerformed
 
     /**

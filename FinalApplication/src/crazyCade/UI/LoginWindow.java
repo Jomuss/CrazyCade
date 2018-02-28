@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
-import java.awt.Font;
+import datalayer.UserDao;
+import static datalayer.UserDao.userComponents;
+import datalayer.UserModel;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
+import java.io.File;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +19,8 @@ import java.awt.Checkbox;
  */
 public class LoginWindow extends javax.swing.JFrame {
     JPasswordField p;
+    MainWindow main;
+    static UserModel curUser;
     /**
      * Creates new form LoginWindow
      */
@@ -138,7 +144,19 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        System.out.print("Go to main window");
+        curUser = UserDao.getUser(new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + usernameText.getText() + ".txt"));
+        if(curUser != null){
+            if(p.getText().equals(curUser.password)){
+                this.setVisible(false);
+                main = new MainWindow(false);
+                MainWindow.username = usernameText.getText();
+                main.setVisible(true);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Your password is not correct");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Account was not found");
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void showPassWBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPassWBoxItemStateChanged
@@ -187,6 +205,7 @@ public class LoginWindow extends javax.swing.JFrame {
         else 
             p.setEchoChar('*');
     }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;

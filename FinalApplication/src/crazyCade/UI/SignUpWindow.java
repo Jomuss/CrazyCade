@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
+import datalayer.UserModel;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 /**
@@ -18,6 +22,7 @@ public class SignUpWindow extends javax.swing.JFrame {
     BufferedWriter writer;
     FileWriter fw;
     JPasswordField creP, confP;
+    MainWindow mw;
     
     /**
      * Creates new form SignUpWindow
@@ -143,25 +148,21 @@ public class SignUpWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-//        // TODO add your handling code here: 
-        try{
-            fw = new FileWriter("datalayer/Users.txt");
-            writer = new BufferedWriter(fw);
-            writer.write(usernameField.getText() + "\n" + creP.getSelectedText() + "\n");
-            writer.close();
-        } catch(IOException e){
-            e.printStackTrace();
-        } finally {
+    // TODO add your handling code here:
+        if(creP.getText().equals(confP.getText()) && usernameField.getText() != null){
             try{
-                if(writer != null)
-                    writer.close();
-                if(fw != null)
-                    fw.close();
-            } catch(IOException f) {
-                f.printStackTrace();
+                LoginWindow.curUser = new UserModel(usernameField.getText(), creP.getText(), 0, 0, 0);
+                LoginWindow.curUser.releaseUser();
+            } catch (IOException ex) {
+                Logger.getLogger(SignUpWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this.setVisible(false);
+            MainWindow.username = usernameField.getText();
+            mw = new MainWindow(false);
+            mw.setVisible(true);        
         }
-        System.out.print("Go to main window");
+        else
+            JOptionPane.showMessageDialog(this, "Your password confirmation did not match the one you created");
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
