@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationlayer;
+package crazyCade.UI;
 
 import java.awt.Font;
 import javax.swing.JPasswordField;
