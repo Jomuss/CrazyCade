@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.modelLayer;
+package datalayer;
 
 
 
@@ -20,7 +20,7 @@ public class PlayerModel{
     private int[] checkersRecord;
     private int overallWins;
     
-    PlayerModel(){
+    public PlayerModel(){
         pongRecord = new int[2];
         checkersRecord = new int[2];
     }
@@ -57,7 +57,7 @@ public class PlayerModel{
      * @return the pongWins
      */
     public int getPongWins() {
-        return pongWins;
+        return this.pongRecord[0];
     }
 
     /**
@@ -85,7 +85,7 @@ public class PlayerModel{
      * @return the checkersWins
      */
     public int getCheckersWins() {
-        return checkersWins;
+        return this.checkersRecord[0];
     }
 
     /**
@@ -113,7 +113,7 @@ public class PlayerModel{
      * @return the overallWins
      */
     public int getOverallWins() {
-        return overallWins;
+        return this.pongRecord[0] + this.checkersRecord[0];
     }
 
     /**
