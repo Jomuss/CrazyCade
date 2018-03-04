@@ -5,13 +5,13 @@
  */
 package crazyCade.modelLayer;
 
-import crazyCade.dataLayer.userDAO;
+
 
 /**
  *
  * @author Joe Moss
  */
-public class PlayerModel implements userDAO {
+public class PlayerModel{
     private String userName;
     private String password;  
     private int pongWins;
@@ -28,7 +28,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the userName
      */
-    @Override
     public String getUserName() {
         return userName;
     }
@@ -36,7 +35,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param userName the userName to set
      */
-    @Override
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -44,7 +42,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the password
      */
-    @Override
     public String getPassword() {
         return password;
     }
@@ -52,7 +49,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param password the password to set
      */
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,7 +56,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the pongWins
      */
-    @Override
     public int getPongWins() {
         return pongWins;
     }
@@ -68,7 +63,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param pongWins the pongWins to set
      */
-    @Override
     public void setPongWins(int pongWins) {
         this.pongWins = pongWins;
     }
@@ -76,7 +70,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the pongRecord
      */
-    @Override
     public String getPongRecord() {
         return pongRecord[0]+" - "+pongRecord[1];
     }
@@ -84,7 +77,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param pongRecord the pongRecord to set
      */
-    @Override
     public void setPongRecord(int[] pongRecord) {
         this.pongRecord = pongRecord;
     }
@@ -92,7 +84,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the checkersWins
      */
-    @Override
     public int getCheckersWins() {
         return checkersWins;
     }
@@ -100,7 +91,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param checkersWins the checkersWins to set
      */
-    @Override
     public void setCheckersWins(int checkersWins) {
         this.checkersWins = checkersWins;
     }
@@ -108,7 +98,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the checkersRecord
      */
-    @Override
     public String getCheckersRecord() {
         return checkersRecord[0]+" - "+checkersRecord[1];
     }
@@ -116,7 +105,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param checkersRecord the checkersRecord to set
      */
-    @Override
     public void setCheckersRecord(int[] checkersRecord) {
         this.checkersRecord = checkersRecord;
     }
@@ -124,7 +112,6 @@ public class PlayerModel implements userDAO {
     /**
      * @return the overallWins
      */
-    @Override
     public int getOverallWins() {
         return overallWins;
     }
@@ -132,7 +119,6 @@ public class PlayerModel implements userDAO {
     /**
      * @param overallWins the overallWins to set
      */
-    @Override
     public void setOverallWins(int overallWins) {
         this.overallWins = overallWins;
     }

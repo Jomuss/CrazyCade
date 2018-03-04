@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationlayer;
+package crazyCade.UI;
 
-import datalayer.UserDao;
-import static datalayer.UserDao.userComponents;
-import datalayer.UserModel;
+import crazyCade.dataLayer.UserDao;
+import static crazyCade.dataLayer.UserDao.userComponents;
+import crazyCade.dataLayer.UserModel;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
 import java.io.File;

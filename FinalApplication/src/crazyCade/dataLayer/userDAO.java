@@ -5,80 +5,72 @@
  */
 package crazyCade.dataLayer;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 /**
  *
- * @author Joe Moss
+ * @author Alex
  */
-public interface userDAO {
-
-    /**
-     * @return the checkersRecord
-     */
-    String getCheckersRecord();
-
-    /**
-     * @return the checkersWins
-     */
-    int getCheckersWins();
-
-    /**
-     * @return the overallWins
-     */
-    int getOverallWins();
-
-    /**
-     * @return the password
-     */
-    String getPassword();
-
-    /**
-     * @return the pongRecord
-     */
-    String getPongRecord();
-
-    /**
-     * @return the pongWins
-     */
-    int getPongWins();
-
-    /**
-     * @return the userName
-     */
-    String getUserName();
-
-    /**
-     * @param checkersRecord the checkersRecord to set
-     */
-    void setCheckersRecord(int[] checkersRecord);
-
-    /**
-     * @param checkersWins the checkersWins to set
-     */
-    void setCheckersWins(int checkersWins);
-
-    /**
-     * @param overallWins the overallWins to set
-     */
-    void setOverallWins(int overallWins);
-
-    /**
-     * @param password the password to set
-     */
-    void setPassword(String password);
-
-    /**
-     * @param pongRecord the pongRecord to set
-     */
-    void setPongRecord(int[] pongRecord);
-
-    /**
-     * @param pongWins the pongWins to set
-     */
-    void setPongWins(int pongWins);
-
-    /**
-     * @param userName the userName to set
-     */
-    void setUserName(String userName);
+public class UserDao {
+    public static ArrayList<String> userComponents;
     
+    public static void addUser(UserModel user) throws IOException{
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        File userFile = new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + user.userName + ".txt");
+        userFile.createNewFile();        
+        try {
+            fw = new FileWriter(userFile);
+            bw = new BufferedWriter(fw);
+            bw.write(user.userName + "\n");
+            bw.write(user.password + "\n");
+            bw.write(String.valueOf(user.overallScore + "\n"));
+            bw.write(String.valueOf(user.pongScore + "\n"));
+            bw.write(String.valueOf(user.checkerScore));
+//            FileOutputStream fos;
+//            fos = new FileOutputStream(file);
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }               
+    }
+    
+    public static UserModel getUser(File file){
+        userComponents = new ArrayList();
+        UserModel user = null;
+        BufferedReader reader = null;
+        String line;
+        try {
+            if(!file.exists())
+                return null;
+            else{ 
+                reader = new BufferedReader(new FileReader(file));
+                line = reader.readLine();
+                while(line != null){
+                    userComponents.add(line);
+                    line = reader.readLine();
+                }
+                user = new UserModel(userComponents.get(0), userComponents.get(1), Integer.valueOf(userComponents.get(2)), Integer.valueOf(userComponents.get(3)), Integer.valueOf(userComponents.get(4)));
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
