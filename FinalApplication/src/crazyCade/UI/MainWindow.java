@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
-import crazyCade.dataLayer.UserDao;
-import crazyCade.dataLayer.UserModel;
+import datalayer.UserDao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -27,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         this.guest = guest;
         if(!guest)
-            scoreLabel.setText(String.valueOf(LoginWindow.curUser.overallScore));
+            scoreLabel.setText(String.valueOf(LoginWindow.curUser.getOverallWins()));
         else
             scoreLabel.setText("0");
         // Possibly a guest subclass for the guests score
@@ -39,7 +38,7 @@ public class MainWindow extends javax.swing.JFrame {
         g.setColor(Color.orange);
         g.setFont(new Font("Serif", Font.ITALIC, 38));
         if(!guest)
-            g.drawString(LoginWindow.curUser.userName, 259, 90);
+            g.drawString(LoginWindow.curUser.getUserName(), 259, 90);
         else 
             g.drawString("Guest", 259, 90);
         g.setColor(Color.blue);
@@ -71,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Your overall score: ");
+        jLabel1.setText("Your overall wins: ");
 
         pongPlayBtn.setText("Play");
 
@@ -170,8 +169,7 @@ public class MainWindow extends javax.swing.JFrame {
             System.exit(0);
         else{
             try {
-                LoginWindow.curUser.overallScore = 44;                
-                LoginWindow.curUser.releaseUser();
+                UserDao.addUser(LoginWindow.curUser);
                 System.exit(0);
             } catch(IOException e){
                 Logger.getLogger(SignUpWindow.class.getName()).log(Level.SEVERE, null, e);

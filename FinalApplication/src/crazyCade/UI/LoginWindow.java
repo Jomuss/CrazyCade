@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
-import crazyCade.dataLayer.UserDao;
-import static crazyCade.dataLayer.UserDao.userComponents;
-import crazyCade.dataLayer.UserModel;
+import datalayer.PlayerModel;
+import datalayer.UserDao;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
 import java.io.File;
@@ -20,7 +19,7 @@ import javax.swing.JOptionPane;
 public class LoginWindow extends javax.swing.JFrame {
     JPasswordField p;
     MainWindow main;
-    static UserModel curUser;
+    static PlayerModel curUser;
     /**
      * Creates new form LoginWindow
      */
@@ -146,7 +145,7 @@ public class LoginWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         curUser = UserDao.getUser(new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + usernameText.getText() + ".txt"));
         if(curUser != null){
-            if(p.getText().equals(curUser.password)){
+            if(p.getText().equals(curUser.getPassword())){
                 this.setVisible(false);
                 main = new MainWindow(false);
                 MainWindow.username = usernameText.getText();

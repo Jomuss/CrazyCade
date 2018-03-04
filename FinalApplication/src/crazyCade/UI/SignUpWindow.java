@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crazyCade.UI;
+package presentationlayer;
 
-import crazyCade.dataLayer.UserModel;
+import datalayer.PlayerModel;
+import datalayer.UserDao;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -150,9 +151,17 @@ public class SignUpWindow extends javax.swing.JFrame {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
     // TODO add your handling code here:
         if(creP.getText().equals(confP.getText()) && usernameField.getText() != null){
+            int[] dummyArray = new int[2];
+            dummyArray[0] = 0;
+            dummyArray[1] = 0;
             try{
-                LoginWindow.curUser = new UserModel(usernameField.getText(), creP.getText(), 0, 0, 0);
-                LoginWindow.curUser.releaseUser();
+//                LoginWindow.curUser = new UserModel(usernameField.getText(), creP.getText(), 0, 0, 0);
+                LoginWindow.curUser = new PlayerModel();
+                LoginWindow.curUser.setUserName(usernameField.getText());
+                LoginWindow.curUser.setPassword(creP.getText());
+                LoginWindow.curUser.setPongRecord(dummyArray);
+                LoginWindow.curUser.setCheckersRecord(dummyArray);
+                UserDao.addUser(LoginWindow.curUser);
             } catch (IOException ex) {
                 Logger.getLogger(SignUpWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
