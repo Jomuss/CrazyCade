@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package datalayer;
+package crazyCade.modelLayer;
 
 
 
@@ -11,7 +11,7 @@ package datalayer;
  *
  * @author Joe Moss
  */
-public class PlayerModel{
+public class PlayerModel {
     private String userName;
     private String password;  
     private int pongWins;
@@ -19,10 +19,23 @@ public class PlayerModel{
     private int checkersWins;
     private int[] checkersRecord;
     private int overallWins;
+    private int position;
     
     public PlayerModel(){
-        pongRecord = new int[2];
-        checkersRecord = new int[2];
+        this.setArrays();
+    }
+    
+    public PlayerModel(String userName, String password, int pongWins, int pongLosses, int checkersWins, int checkersLosses){
+        this.setArrays();
+        this.userName = userName;
+        this.password = password;
+        this.pongRecord[0] = pongWins;
+        this.checkersRecord[0] = checkersWins;
+        this.pongRecord[1] = pongLosses;
+        this.checkersRecord[1] = checkersLosses;
+        this.pongWins = this.pongRecord[0];
+        this.checkersWins = this.checkersRecord[0];
+        this.overallWins = this.checkersWins + this.pongWins;
     }
 
     /**
@@ -123,4 +136,26 @@ public class PlayerModel{
         this.overallWins = overallWins;
     }
     
+    public double getWinPct(){
+        double a;
+        int gamesPlayed = pongRecord[0] + pongRecord[1] + checkersRecord[0] + checkersRecord[1];
+        if(overallWins == 0)
+            a = 0;
+        else
+            a = gamesPlayed / overallWins;
+        return a;
+    }
+    
+    public int getPosition(){
+        return this.position;
+    }
+    
+    public void setPosition(int position){
+        this.position = position;
+    }
+    
+    private void setArrays(){
+        pongRecord = new int[2];
+        checkersRecord = new int[2];
+    }
 }
