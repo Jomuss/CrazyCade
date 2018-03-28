@@ -18,12 +18,14 @@ public class PawnPiece {
     public static int[] white = {200,200,200};
     public static int[] black = {25,25,25};
     public boolean selected = false;
+    public int ID;
     
     
-    public PawnPiece(int[] color, int x, int y){
+    public PawnPiece(int[] color, int x, int y, int ID){
         radius = 75;
         this.x = x;
         this.y = y;
         this.color = color;
+        this.ID = ID;
     }
 }

@@ -10,7 +10,7 @@ import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import crazyCade.gameLayer.checkers.Checkers;
+import crazyCade.gameLayer.checkers.CheckersManager;
 
 /**
  *
@@ -19,12 +19,12 @@ import crazyCade.gameLayer.checkers.Checkers;
 public class MainGUI extends javax.swing.JFrame {
      PongOnePlayerSelector pongOnePlayerWindow;
      PongTwoPlayerSelector pongTwoPlayerWindow;
-     Checkers checkers;
+     CheckersManager checkers;
     public MainGUI() throws IOException {
         initComponents();
         pongOnePlayerWindow = new PongOnePlayerSelector();
         pongTwoPlayerWindow = new PongTwoPlayerSelector();
-        checkers = new Checkers();
+        checkers = new CheckersManager();
         pongTwoPlayerWindow.getMainWindow(this);
 
 //        pongHandler = new PongOnePlayer();

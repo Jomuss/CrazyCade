@@ -21,21 +21,21 @@ public class CheckerBoard {
         return checkerSquares;
     }
     private void initializeBoard(){
-        int letter = 65;
+        char letter = 'A';
         int num = 1;
         for(int i = 0; i < 8; i++){
             for(int k = 0; k < 8; k++){
                 if(i%2 == 0 && k%2 == 0){
-                    checkerSquares.add(new CheckerSquare((char)(letter+i), (num+k), CheckerSquare.red, i*100, k*100));    
+                    checkerSquares.add(new CheckerSquare((char)(letter+k), (num+i), CheckerSquare.red, k*100, i*100));    
                 }
                 else if(i%2 == 0 && k%2 !=0){
-                    checkerSquares.add(new CheckerSquare((char)(letter+i), (num+k), CheckerSquare.black, i*100, k*100));
+                    checkerSquares.add(new CheckerSquare((char)(letter+k), (num+i), CheckerSquare.black, k*100, i*100));
                 }
                 else if (i%2 !=0 && k%2 == 0){
-                    checkerSquares.add(new CheckerSquare((char)(letter+i), (num+k), CheckerSquare.black, i*100, k*100));
+                    checkerSquares.add(new CheckerSquare((char)(letter+k), (num+i), CheckerSquare.black, k*100, i*100));
                 }
                 else{
-                    checkerSquares.add(new CheckerSquare((char)(letter+i), (num+k), CheckerSquare.red, i*100, k*100));
+                    checkerSquares.add(new CheckerSquare((char)(letter+k), (num+i), CheckerSquare.red, k*100, i*100));
                 }
 
             }

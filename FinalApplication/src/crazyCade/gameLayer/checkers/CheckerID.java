@@ -16,7 +16,12 @@ public class CheckerID {
     /**
      * @return the letter
      */
-    public int getLetter() {
+    //A Field that stores the ID for a single Checker Square, Lettered A-H and Numbered 1-8
+    public CheckerID(char letter, int num){
+        this.letter = letter;
+        this.num = num;
+    }
+    public char getLetter() {
         return letter;
     }
 
