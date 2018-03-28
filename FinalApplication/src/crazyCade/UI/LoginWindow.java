@@ -5,9 +5,8 @@
  */
 package crazyCade.UI;
 
+import crazyCade.modelLayer.PlayerModel;
 import crazyCade.dataLayer.UserDao;
-import static crazyCade.dataLayer.UserDao.userComponents;
-import crazyCade.dataLayer.UserModel;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
 import java.io.File;
@@ -20,7 +19,7 @@ import javax.swing.JOptionPane;
 public class LoginWindow extends javax.swing.JFrame {
     JPasswordField p;
     MainWindow main;
-    static UserModel curUser;
+    static PlayerModel curUser;
     /**
      * Creates new form LoginWindow
      */
@@ -144,9 +143,9 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        curUser = UserDao.getUser(new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + usernameText.getText() + ".txt"));
+        curUser = UserDao.getUser(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/" + usernameText.getText() + ".txt"));
         if(curUser != null){
-            if(p.getText().equals(curUser.password)){
+            if(p.getText().equals(curUser.getPassword())){
                 this.setVisible(false);
                 main = new MainWindow(false);
                 MainWindow.username = usernameText.getText();

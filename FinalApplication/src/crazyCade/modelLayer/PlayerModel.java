@@ -11,7 +11,7 @@ package crazyCade.modelLayer;
  *
  * @author Joe Moss
  */
-public class PlayerModel{
+public class PlayerModel {
     private String userName;
     private String password;  
     private int pongWins;
@@ -19,10 +19,23 @@ public class PlayerModel{
     private int checkersWins;
     private int[] checkersRecord;
     private int overallWins;
+    private int position;
     
-    PlayerModel(){
-        pongRecord = new int[2];
-        checkersRecord = new int[2];
+    public PlayerModel(){
+        this.setArrays();
+    }
+    
+    public PlayerModel(String userName, String password, int pongWins, int pongLosses, int checkersWins, int checkersLosses){
+        this.setArrays();
+        this.userName = userName;
+        this.password = password;
+        this.pongRecord[0] = pongWins;
+        this.checkersRecord[0] = checkersWins;
+        this.pongRecord[1] = pongLosses;
+        this.checkersRecord[1] = checkersLosses;
+        this.pongWins = this.pongRecord[0];
+        this.checkersWins = this.checkersRecord[0];
+        this.overallWins = this.checkersWins + this.pongWins;
     }
 
     /**
@@ -57,7 +70,7 @@ public class PlayerModel{
      * @return the pongWins
      */
     public int getPongWins() {
-        return pongWins;
+        return this.pongRecord[0];
     }
 
     /**
@@ -85,7 +98,7 @@ public class PlayerModel{
      * @return the checkersWins
      */
     public int getCheckersWins() {
-        return checkersWins;
+        return this.checkersRecord[0];
     }
 
     /**
@@ -113,7 +126,7 @@ public class PlayerModel{
      * @return the overallWins
      */
     public int getOverallWins() {
-        return overallWins;
+        return this.pongRecord[0] + this.checkersRecord[0];
     }
 
     /**
@@ -123,4 +136,26 @@ public class PlayerModel{
         this.overallWins = overallWins;
     }
     
+    public double getWinPct(){
+        double a;
+        int gamesPlayed = pongRecord[0] + pongRecord[1] + checkersRecord[0] + checkersRecord[1];
+        if(overallWins == 0)
+            a = 0;
+        else
+            a = gamesPlayed / overallWins;
+        return a;
+    }
+    
+    public int getPosition(){
+        return this.position;
+    }
+    
+    public void setPosition(int position){
+        this.position = position;
+    }
+    
+    private void setArrays(){
+        pongRecord = new int[2];
+        checkersRecord = new int[2];
+    }
 }
