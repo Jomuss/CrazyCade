@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationlayer;
+// Project is under CrazyCade-Orgin(2) in Downloads
+package crazyCade.UI;
 
-import datalayer.UserDao;
+import crazyCade.dataLayer.UserDao;
+import crazyCade.gameLayer.checkers.Checkers;
+import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,11 +22,18 @@ import java.util.logging.Logger;
 public class MainWindow extends javax.swing.JFrame {
     Boolean guest;
     static String username;
+    Checkers newCheckersGame;
+    PongTwoPlayerSelector p;
+    MainLeaderboard leaderBoard;
+    CheckersLeaderboard checkerLeaderboard;
+    PongLeaderboard pongLeaderboard;
+     
     /**
      * Creates new form MainWindow
      */
     public MainWindow(Boolean guest) {
         initComponents();
+        leaderBoard = new MainLeaderboard();
         this.guest = guest;
         if(!guest)
             scoreLabel.setText(String.valueOf(LoginWindow.curUser.getOverallWins()));
@@ -65,16 +75,26 @@ public class MainWindow extends javax.swing.JFrame {
         pongLeaderboardBtn = new javax.swing.JButton();
         checkersPlayBtn = new javax.swing.JButton();
         checkersLeaderboardBtn = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         logoutBtn = new javax.swing.JButton();
+        mainLeaderboard1 = new crazyCade.UI.MainLeaderboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Your overall wins: ");
 
         pongPlayBtn.setText("Play");
+        pongPlayBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pongPlayBtnActionPerformed(evt);
+            }
+        });
 
         pongLeaderboardBtn.setText("Leaderboard");
+        pongLeaderboardBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pongLeaderboardBtnActionPerformed(evt);
+            }
+        });
 
         checkersPlayBtn.setText("Play");
         checkersPlayBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -84,17 +104,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         checkersLeaderboardBtn.setText("Leaderboard");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
-        );
+        checkersLeaderboardBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkersLeaderboardBtnActionPerformed(evt);
+            }
+        });
 
         logoutBtn.setText("Log Out");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +116,17 @@ public class MainWindow extends javax.swing.JFrame {
                 logoutBtnActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout mainLeaderboard1Layout = new javax.swing.GroupLayout(mainLeaderboard1);
+        mainLeaderboard1.setLayout(mainLeaderboard1Layout);
+        mainLeaderboard1Layout.setHorizontalGroup(
+            mainLeaderboard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 215, Short.MAX_VALUE)
+        );
+        mainLeaderboard1Layout.setVerticalGroup(
+            mainLeaderboard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,8 +152,8 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pongLeaderboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(checkersLeaderboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(108, 108, 108)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(147, 147, 147)
+                        .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,11 +174,11 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(95, 95, 95)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkersPlayBtn)
-                            .addComponent(checkersLeaderboardBtn))
-                        .addContainerGap(99, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(checkersLeaderboardBtn)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,6 +186,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        newCheckersGame = new Checkers();
+        newCheckersGame.intialize();
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -176,6 +204,27 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void pongPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pongPlayBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        p = new PongTwoPlayerSelector();
+        p.setVisible(true);
+    }//GEN-LAST:event_pongPlayBtnActionPerformed
+
+    private void pongLeaderboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pongLeaderboardBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        pongLeaderboard = new PongLeaderboard(this);
+        pongLeaderboard.setVisible(true);
+    }//GEN-LAST:event_pongLeaderboardBtnActionPerformed
+
+    private void checkersLeaderboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersLeaderboardBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        checkerLeaderboard = new CheckersLeaderboard(this);
+        checkerLeaderboard.setVisible(true);      
+    }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,8 +265,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton checkersLeaderboardBtn;
     private javax.swing.JButton checkersPlayBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutBtn;
+    private crazyCade.UI.MainLeaderboard mainLeaderboard1;
     private javax.swing.JButton pongLeaderboardBtn;
     private javax.swing.JButton pongPlayBtn;
     private javax.swing.JLabel scoreLabel;

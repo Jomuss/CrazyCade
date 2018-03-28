@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationlayer;
+package crazyCade.UI;
 
-import datalayer.PlayerModel;
-import datalayer.UserDao;
+import crazyCade.modelLayer.PlayerModel;
+import crazyCade.dataLayer.UserDao;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

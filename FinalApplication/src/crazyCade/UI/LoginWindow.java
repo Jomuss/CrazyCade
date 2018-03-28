@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationlayer;
+package crazyCade.UI;
 
-import datalayer.PlayerModel;
-import datalayer.UserDao;
+import crazyCade.modelLayer.PlayerModel;
+import crazyCade.dataLayer.UserDao;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
 import java.io.File;
@@ -143,7 +143,7 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        curUser = UserDao.getUser(new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + usernameText.getText() + ".txt"));
+        curUser = UserDao.getUser(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/" + usernameText.getText() + ".txt"));
         if(curUser != null){
             if(p.getText().equals(curUser.getPassword())){
                 this.setVisible(false);
