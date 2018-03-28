@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package datalayer;
+package crazyCade.dataLayer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import crazyCade.modelLayer.PlayerModel;
 /**
  *
  * @author Alex

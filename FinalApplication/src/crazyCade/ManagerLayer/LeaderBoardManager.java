@@ -12,9 +12,9 @@ import crazyCade.modelLayer.LeaderBoardModel;
  * @author Joe Moss
  */
 public class LeaderBoardManager {
-    private LeaderBoardModel overallLeaderboard;
-    private LeaderBoardModel pongLeaderboard;
-    private LeaderBoardModel checkersLeaderboard;
+    public LeaderBoardModel overallLeaderboard;
+    public LeaderBoardModel pongLeaderboard;
+    public LeaderBoardModel checkersLeaderboard;
     
     public LeaderBoardManager(){
         
