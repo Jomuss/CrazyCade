@@ -29,6 +29,7 @@ public class CheckersPlayer {
     int portNum;
     int startingNum; 
     int newByte;
+    int lastByte;
     int curNum;
     //Constructor to be used after implimenting account/leaderboard support
     public CheckersPlayer(PlayerModel player, PApplet inst, int portNum, CheckerBoard board, Runnable selectPawn, Runnable movePawn){
@@ -113,6 +114,7 @@ public class CheckersPlayer {
         if(this.portNum == 1){
             int curNum = 0;
             int idCounter = 1;
+            int counter = 0;
             for(int i = 0; i<3; i++){
                 for(int k = 0;k<8;k++){
                     //If the pawn is on an even row
@@ -124,7 +126,11 @@ public class CheckersPlayer {
                         PawnSet.put(p, board.getBoard().get(curNum));
                         board.getBoard().get(curNum).occupied = true;
                         p.curPosition = board.getBoard().get(curNum);
-                        curNum+=2;
+                        counter++;
+                        if(counter == 3)
+                            curNum+=3;
+                        else
+                            curNum+=2;
                         idCounter++;
                     }
                     //If the pawn is on an odd row
@@ -136,7 +142,11 @@ public class CheckersPlayer {
                         PawnSet.put(p, board.getBoard().get(curNum));
                         board.getBoard().get(curNum).occupied = true;
                         p.curPosition = board.getBoard().get(curNum);
-                        curNum+=2;
+                        counter++;
+                        if(counter == 7)
+                            curNum++;
+                        else
+                            curNum+=2;
                         idCounter++;
                     }
                     
@@ -157,13 +167,22 @@ public class CheckersPlayer {
         //Let the Arduino know that the game being played is chess
         
         while(myPort.available() > 0){
+            lastByte = newByte;
             newByte = myPort.read();
-            if((newByte != -1 && newByte != 's') && newByte != 'm'){
+            if((newByte != -1 && newByte != 'm') && newByte != 'c'){
                 System.out.println(newByte);
-            }else if(newByte != -1 && (char)newByte == 's'){
-                System.out.println(newByte);
-                selectCurPawn = true;
-                manager.selectCurrentPawn();
+            }else if(newByte != -1 && (char)newByte == 'c'){
+                boolean validMoves[] = new boolean[2];
+                validMoves = this.checkForValidMoves(lastByte);
+                System.out.println((char)newByte);
+                if(validMoves[0] || validMoves[1]){
+                    this.myPort.write('y');
+                    selectCurPawn = true;
+                    manager.selectCurrentPawn();
+                }
+                else{
+                    manager.noValidMovesNotif();
+                }
             }else if(newByte != -1 && (char)newByte == 'm'){
                 manager.movePawn();
                 System.out.println(newByte);
@@ -180,6 +199,34 @@ public class CheckersPlayer {
             }
         }
     }
+//    public PawnPiece getPawn(CheckerID ID){
+//        PawnPiece p = PawnSet.get(ID);
+//        for(PawnPiece piece: PawnSet.keySet()){
+//            if()
+//        }
+//        
+//    }
+    //FOR USE EXTERNALLY
+    public boolean[] checkForValidMoves(){
+        boolean[] validMoves = new boolean[2];
+        CheckerID[] potentialMoves = this.getPotentialMoves();
+        CheckerSquare leftSquare = null;
+        if(potentialMoves[0] != null)
+            leftSquare = board.getSquareFromID(potentialMoves[0]);
+        CheckerSquare rightSquare = null;
+        if(potentialMoves[1] != null)
+            rightSquare = board.getSquareFromID(potentialMoves[1]);
+        if(leftSquare == null ||leftSquare.occupied)
+            validMoves[0] = false;
+        else
+            validMoves[0] = true;   
+        if(rightSquare == null || rightSquare.occupied)
+            validMoves[1] = false;
+        else{
+            validMoves[1] = true; 
+        }  
+        return validMoves;
+    }
     public CheckerID[] getPotentialMoves(){
         if(manager.getTurn() == 1){
             CheckerID[] potentialMoves = new CheckerID[2];
@@ -195,6 +242,63 @@ public class CheckersPlayer {
             System.out.println(potentialMoves[0].getLetter()+""+potentialMoves[0].getNum());
             potentialMoves[1] = new CheckerID((char)(PawnSet.get(selectedPawn).ID.getLetter()+1), (PawnSet.get(selectedPawn).ID.getNum())+1);
             System.out.println(potentialMoves[1].getLetter()+""+potentialMoves[1].getNum());
+            return potentialMoves; 
+        }
+    }
+    //FOR USE INTERNALLY
+    private boolean[] checkForValidMoves(int playerValue){
+        boolean[] validMoves = new boolean[2];
+        CheckerID[] potentialMoves = this.getPotentialMoves(playerValue);
+        CheckerSquare leftSquare = null;
+        if(potentialMoves[0] != null)
+            leftSquare = board.getSquareFromID(potentialMoves[0]);
+        CheckerSquare rightSquare = null;
+        if(potentialMoves[1] != null)
+            rightSquare = board.getSquareFromID(potentialMoves[1]);
+        if(leftSquare == null ||leftSquare.occupied)
+            validMoves[0] = false;
+        else
+            validMoves[0] = true;   
+        if(rightSquare == null || rightSquare.occupied)
+            validMoves[1] = false;
+        else{
+            validMoves[1] = true; 
+        }  
+        return validMoves;
+    }
+    private CheckerID[] getPotentialMoves(int playerValue){
+        PawnPiece pawn = null;
+        for(PawnPiece p: PawnSet.keySet()){
+            if(p.ID == playerValue){
+                pawn = p;
+            }
+        }
+        if(manager.getTurn() == 1){
+            CheckerID[] potentialMoves = new CheckerID[2];
+            potentialMoves[0] = new CheckerID((char)(PawnSet.get(pawn).ID.getLetter()-1), (PawnSet.get(pawn).ID.getNum()-1));
+            System.out.println(potentialMoves[0].getLetter()+""+potentialMoves[0].getNum());
+            potentialMoves[1] = new CheckerID((char)(PawnSet.get(pawn).ID.getLetter()+1), (PawnSet.get(pawn).ID.getNum())-1);
+            System.out.println(potentialMoves[1].getLetter()+""+potentialMoves[1].getNum());
+            if(potentialMoves[0].getLetter() < 'A' || potentialMoves[0].getLetter() > 'H'){
+                potentialMoves[0] = null;
+            }
+            if(potentialMoves[1].getLetter() < 'A' || potentialMoves[1].getLetter() > 'H'){
+                potentialMoves[1] = null;
+            }
+            return potentialMoves; 
+        }
+        else{
+            CheckerID[] potentialMoves = new CheckerID[2];
+            potentialMoves[0] = new CheckerID((char)(PawnSet.get(pawn).ID.getLetter()-1), (PawnSet.get(pawn).ID.getNum()+1));
+            System.out.println(potentialMoves[0].getLetter()+""+potentialMoves[0].getNum());
+            potentialMoves[1] = new CheckerID((char)(PawnSet.get(pawn).ID.getLetter()+1), (PawnSet.get(pawn).ID.getNum())+1);
+            System.out.println(potentialMoves[1].getLetter()+""+potentialMoves[1].getNum());
+            if(potentialMoves[0].getLetter() < 'A' || potentialMoves[0].getLetter() > 'H'){
+                potentialMoves[0] = null;
+            }
+            if(potentialMoves[1].getLetter() < 'A' || potentialMoves[1].getLetter() > 'H'){
+                potentialMoves[1] = null;
+            }
             return potentialMoves; 
         }
     }

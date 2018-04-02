@@ -87,7 +87,7 @@ public class PongTwoPlayer extends PApplet{
     }
     public void draw(){
         background(200, 200, 200);
-        if(playerTwoScore.score < 1 && PlayerScore.score < 1){
+        if(playerTwoScore.score < 11 && PlayerScore.score < 11){
             playerOnePaddle.padY = playerOnePaddle.getMove();
             playerTwoPaddle.padY = playerTwoPaddle.getMove();
 
@@ -106,10 +106,10 @@ public class PongTwoPlayer extends PApplet{
             text(playerTwoScore.score, 75, 30, 0);
             text(PlayerScore.score, 400, 30, 0);
         }
-        else if(playerTwoScore.score >= 1){
+        else if(playerTwoScore.score > 11){
             textSize(35);
             fill(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256));
-            text("Sorry, You Lose!", 0, height*1/2);
+            text("Player Two Wins!", 0, height*1/2);
             textSize(50);
             text("Thanks for Playing!", 0, height*2/3);
             playerOnePaddle.gameOver();
@@ -122,7 +122,7 @@ public class PongTwoPlayer extends PApplet{
         else{
             textSize(35);
             fill(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256));
-            text("Congratulations, You Win!", 0, height*1/2);
+            text("Player One Wins!", 0, height*1/2);
             textSize(50);
             text("Thanks for Playing!", 0, height*2/3);
             playerOnePaddle.gameOver();
@@ -133,37 +133,7 @@ public class PongTwoPlayer extends PApplet{
         
         
     }
-                //Based on code from https://processing.org/reference/keyCode.html
-//    public void keyPressed(){
-//        if(keyPressed){
-//            if (key == 'w') {
-//                if(playerTwoPaddle.padY < 10)
-//                    playerTwoPaddle.padY = playerTwoPaddle.padY;
-//                else
-//                    playerTwoPaddle.padY = playerTwoPaddle.padY - 10;
-//            }else if (key == 's') {
-//                if(playerTwoPaddle.padY > height -60)
-//                    playerTwoPaddle.padY = playerTwoPaddle.padY;
-//                else
-//                    playerTwoPaddle.padY = playerTwoPaddle.padY + 10;             
-//            }else
-//                playerTwoPaddle.padY = playerTwoPaddle.padY;
-//            
-//        }
-//}
-        
- 
-//        if(ballX > width){
-//            ballX = (int) (width*.5);
-//            ballSpeedX = -ballSpeedX;
-//            playerTwoScore++;
-//        }else if(ballX < 0){
-//            ballX = (int) (width*.5);
-//            ballSpeedX = -ballSpeedX;
-//            PlayerScore++;
-//        }
-        
-        
+
     
         
     public int AIMovement( int aiY, int ballY, double moveProb){

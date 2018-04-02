@@ -20,6 +20,15 @@ public class CheckerBoard {
     public ArrayList<CheckerSquare> getBoard(){
         return checkerSquares;
     }
+    public CheckerSquare getSquareFromID(CheckerID ID){
+        CheckerSquare c = null;
+        for(CheckerSquare s: checkerSquares){
+            if(s.ID.getLetter() == ID.getLetter() && s.ID.getNum() == ID.getNum()){
+                c = s;
+            }
+        }
+        return c;
+    }
     private void initializeBoard(){
         char letter = 'A';
         int num = 1;
