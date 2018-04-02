@@ -10,10 +10,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import crazyCade.modelLayer.PlayerModel;
 /**
@@ -22,12 +19,35 @@ import crazyCade.modelLayer.PlayerModel;
  */
 public class UserDao {
     public static ArrayList<String> userComponents;
+    public static int userCount;
     
-    public static void addUser(PlayerModel user) throws IOException{
+    public static void addUser(PlayerModel user, Boolean newUser) throws IOException{
+        int i = 0;
         FileWriter fw = null;
         BufferedWriter bw = null;
-        File userFile = new File("C:/Users/Alex/Java/StartingWindows/src/gamedao/" + user.getUserName() + ".txt");
-        userFile.createNewFile();        
+        BufferedReader reader = null;
+        File userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + i + ".txt");
+        if(!newUser){
+            while(userFile.exists()){
+                reader = new BufferedReader(new FileReader(userFile));
+                if(user.getUserName().equals(reader.readLine())){
+                    userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + i + ".txt");
+                    break;
+                }
+                else{
+                    i++;
+                    userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + i + ".txt");
+                }
+            }
+        }
+        else{
+            while(userFile.exists()){
+                i++;
+                userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + i + ".txt");
+            }
+            userFile.createNewFile();
+        }
+        userCount = i;
         try {
             fw = new FileWriter(userFile);
             bw = new BufferedWriter(fw);
@@ -51,7 +71,7 @@ public class UserDao {
         }               
     }
     
-    public static PlayerModel getUser(File file){
+    public static PlayerModel getUser(String username){
         userComponents = new ArrayList();
         PlayerModel user = null;
         BufferedReader reader = null;
@@ -59,6 +79,21 @@ public class UserDao {
         int[] pongRecordArray = new int[2];
         int[] checkersRecordArray = new int[2];
         int i = 0;
+        int j = 1;
+        File file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + j + ".txt");
+        while(file.exists()){
+            try{
+                reader = new BufferedReader(new FileReader(file));
+                if(reader.readLine().equals(username))
+                    break;
+                else {
+                    j++; 
+                    file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + j + ".txt");
+                }
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        }
         try {
             if(!file.exists())
                 return null;
@@ -90,5 +125,20 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
+    }
+    
+    public static void calculateUserCount(){
+        int j = 1;
+        File file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + j + ".txt");
+        if(!file.exists()){
+            userCount = 0;
+        }
+        else{
+            while(file.exists()){
+                j++;
+                file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + j + ".txt");
+            }
+            userCount = j - 1;
+        }
     }
 }
