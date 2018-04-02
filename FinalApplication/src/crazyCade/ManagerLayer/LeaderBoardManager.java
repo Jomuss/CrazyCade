@@ -17,12 +17,16 @@ public class LeaderBoardManager {
     public LeaderBoardModel checkersLeaderboard;
     
     public LeaderBoardManager(){
-        
+        overallLeaderboard = new LeaderBoardModel();
+        pongLeaderboard = new LeaderBoardModel();
+        checkersLeaderboard = new LeaderBoardModel();
+        this.intitialize();
     }
+    
     private void intitialize(){
-        overallLeaderboard.populateLeaderboardFromPlayerData();
-        pongLeaderboard.populateLeaderboardFromPlayerData();
-        checkersLeaderboard.populateLeaderboardFromPlayerData();
+        overallLeaderboard.populateLeaderboardFromPlayerData(0);
+        pongLeaderboard.populateLeaderboardFromPlayerData(1);
+        checkersLeaderboard.populateLeaderboardFromPlayerData(2);
     }
    
 }
