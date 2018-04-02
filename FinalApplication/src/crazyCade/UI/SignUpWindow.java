@@ -157,11 +157,12 @@ public class SignUpWindow extends javax.swing.JFrame {
             try{
 //                LoginWindow.curUser = new UserModel(usernameField.getText(), creP.getText(), 0, 0, 0);
                 LoginWindow.curUser = new PlayerModel();
+                LoginWindow.curUser.declareCurPlayer();
                 LoginWindow.curUser.setUserName(usernameField.getText());
                 LoginWindow.curUser.setPassword(creP.getText());
                 LoginWindow.curUser.setPongRecord(dummyArray);
                 LoginWindow.curUser.setCheckersRecord(dummyArray);
-                UserDao.addUser(LoginWindow.curUser);
+                UserDao.addUser(LoginWindow.curUser, true);
             } catch (IOException ex) {
                 Logger.getLogger(SignUpWindow.class.getName()).log(Level.SEVERE, null, ex);
             }

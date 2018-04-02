@@ -28,8 +28,9 @@ public class PongLeaderboard extends javax.swing.JFrame {
     public void paint(Graphics g){
         super.paint(g);
         g.setFont(new Font("Serif", Font.ITALIC, 38));
-        g.setColor(Color.cyan);
+        g.setColor(Color.BLUE);
         g.drawString("Pong Leaderboard", 58, 90);
+        g.drawLine(55, 110, 331, 110);
     }
     
     /**
@@ -42,6 +43,7 @@ public class PongLeaderboard extends javax.swing.JFrame {
     private void initComponents() {
 
         backBtn = new javax.swing.JButton();
+        pongLeaderboardPanel1 = new crazyCade.UI.PongLeaderboardPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,19 +54,36 @@ public class PongLeaderboard extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout pongLeaderboardPanel1Layout = new javax.swing.GroupLayout(pongLeaderboardPanel1);
+        pongLeaderboardPanel1.setLayout(pongLeaderboardPanel1Layout);
+        pongLeaderboardPanel1Layout.setHorizontalGroup(
+            pongLeaderboardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pongLeaderboardPanel1Layout.setVerticalGroup(
+            pongLeaderboardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pongLeaderboardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 310, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(466, Short.MAX_VALUE)
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addComponent(pongLeaderboardPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(backBtn)
                 .addContainerGap())
         );
@@ -115,5 +134,6 @@ public class PongLeaderboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private crazyCade.UI.PongLeaderboardPanel pongLeaderboardPanel1;
     // End of variables declaration//GEN-END:variables
 }

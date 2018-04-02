@@ -9,7 +9,6 @@ import crazyCade.modelLayer.PlayerModel;
 import crazyCade.dataLayer.UserDao;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
-import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
@@ -143,12 +142,15 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        curUser = UserDao.getUser(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/" + usernameText.getText() + ".txt"));
+        String username = usernameText.getText();
+        curUser = UserDao.getUser(username);
+        UserDao.calculateUserCount();
+        curUser.declareCurPlayer();
         if(curUser != null){
             if(p.getText().equals(curUser.getPassword())){
                 this.setVisible(false);
+                MainWindow.username = username;
                 main = new MainWindow(false);
-                MainWindow.username = usernameText.getText();
                 main.setVisible(true);
             }
             else
@@ -160,7 +162,7 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void showPassWBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPassWBoxItemStateChanged
         // TODO add your handling code here:
-        this.setPasswordChar(p, showPassWBox);
+        LoginWindow.setPasswordChar(p, showPassWBox);
     }//GEN-LAST:event_showPassWBoxItemStateChanged
 
     /**

@@ -5,6 +5,7 @@
  */
 package crazyCade.UI;
 
+import crazyCade.dataLayer.UserDao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -119,6 +120,7 @@ public class WelcomeWindow extends javax.swing.JFrame {
     private void guestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+        UserDao.calculateUserCount();
         main = new MainWindow(true);
         main.setVisible(true);
     }//GEN-LAST:event_guestBtnActionPerformed
