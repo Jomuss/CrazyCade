@@ -20,6 +20,8 @@ public class PlayerModel {
     private int[] checkersRecord;
     private int overallWins;
     private int position;
+    private Boolean curPlayer = false;
+    private double curWinPct;
     
     public PlayerModel(){
         this.setArrays();
@@ -76,8 +78,9 @@ public class PlayerModel {
     /**
      * @param pongWins the pongWins to set
      */
-    public void setPongWins(int pongWins) {
-        this.pongWins = pongWins;
+    public void addToPongWins(int pongWins) {
+        this.pongWins = this.pongWins + pongWins;
+        this.pongRecord[0] = this.pongWins;
     }
 
     /**
@@ -104,8 +107,9 @@ public class PlayerModel {
     /**
      * @param checkersWins the checkersWins to set
      */
-    public void setCheckersWins(int checkersWins) {
-        this.checkersWins = checkersWins;
+    public void addToCheckersWins(int checkersWins) {
+        this.checkersWins = this.checkersWins + checkersWins;
+        this.checkersRecord[0] = this.checkersWins;
     }
 
     /**
@@ -126,7 +130,7 @@ public class PlayerModel {
      * @return the overallWins
      */
     public int getOverallWins() {
-        return this.pongRecord[0] + this.checkersRecord[0];
+        return this.overallWins;
     }
 
     /**
@@ -136,14 +140,24 @@ public class PlayerModel {
         this.overallWins = overallWins;
     }
     
-    public double getWinPct(){
-        double a;
+    public void setCurWinPct(int leaderboardType){
         int gamesPlayed = pongRecord[0] + pongRecord[1] + checkersRecord[0] + checkersRecord[1];
+        int checkersGamesPlayed = checkersRecord[0] + checkersRecord[1];
+        int pongGamesPlayed = pongRecord[0] + pongRecord[1];
         if(overallWins == 0)
-            a = 0;
-        else
-            a = gamesPlayed / overallWins;
-        return a;
+            curWinPct = 0;
+        else{
+            if(leaderboardType == 0)
+                curWinPct = gamesPlayed / overallWins;
+            else if(leaderboardType == 1)
+                curWinPct = pongGamesPlayed / pongRecord[0];
+            else 
+                curWinPct = checkersGamesPlayed / checkersRecord[0];
+        }
+    }
+    
+    public double getCurWinPct(){
+        return this.curWinPct;
     }
     
     public int getPosition(){
@@ -157,5 +171,20 @@ public class PlayerModel {
     private void setArrays(){
         pongRecord = new int[2];
         checkersRecord = new int[2];
+    }
+    
+    public void declareCurPlayer(){
+        this.curPlayer = true;
+    }
+    
+    public Boolean getCurPlayerStatus(){
+        return this.curPlayer;
+    }
+    
+    public void playerLost(Boolean pong){
+        if(pong)
+            this.pongRecord[1]++;
+        else
+            this.checkersRecord[1]++;
     }
 }
