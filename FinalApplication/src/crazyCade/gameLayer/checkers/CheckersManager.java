@@ -20,7 +20,8 @@ public class CheckersManager extends PApplet{
 //    private PlayerModel playerTwo;
     private final CheckersPlayer playerOne;
     private final CheckersPlayer playerTwo;
-    private CheckersPlayer currentPlayer;
+    public CheckersPlayer currentPlayer;
+    public CheckersPlayer standbyPlayer;
     private int currentPlayerValue;
     public enum TURN{
         ONE,
@@ -65,9 +66,11 @@ public class CheckersManager extends PApplet{
         if(curTurn == TURN.ONE){
             curTurn = TURN.TWO;
             currentPlayer = playerTwo;
+            standbyPlayer = playerOne;
         }else{
             curTurn = TURN.ONE;
             currentPlayer = playerOne;
+            standbyPlayer = playerTwo;
         }
     }
     public void drawPawns(){
@@ -118,7 +121,7 @@ public class CheckersManager extends PApplet{
         validMoves = currentPlayer.checkForValidMoves();
         for(CheckerSquare c:checkerBoard.getBoard()){
             if(c.ID.getLetter() == potentialMoves[0].getLetter() && c.ID.getNum() == potentialMoves[0].getNum() &&
-                    newSquare == 1){
+                    newSquare == 1&& validMoves[0]){
                 fill(c.color[0], c.color[1], c.color[2]);
                 strokeWeight(6);
                 stroke(200,200,200);
@@ -134,7 +137,7 @@ public class CheckersManager extends PApplet{
  
             }
             else if(c.ID.getLetter() == potentialMoves[1].getLetter() && c.ID.getNum() == potentialMoves[1].getNum() &&
-                    newSquare == 0){
+                    newSquare == 0&& validMoves[0]){
                 fill(c.color[0], c.color[1], c.color[2]);
                 strokeWeight(6);
                 stroke(200,200,200);
@@ -142,7 +145,7 @@ public class CheckersManager extends PApplet{
 
             }
             else if(c.ID.getLetter() == potentialMoves[1].getLetter() && c.ID.getNum() == potentialMoves[1].getNum() &&
-                    newSquare == 1 && validMoves[0]){
+                    newSquare == 1 && validMoves[1]){
                 fill(c.color[0], c.color[1], c.color[2]);
                 strokeWeight(6);
                 stroke(255,255,0);
@@ -182,14 +185,18 @@ public class CheckersManager extends PApplet{
             }
             else if(pawnSelected){
                 newSquare = currentPlayer.getValue();
-                if(newSquare>6){
+                if(newSquare>=6 && currentPlayer.validMoves[1]){
                     newSquare = 1;
-                }else{
+                }else if(newSquare>=6 && !currentPlayer.validMoves[1]){
                     newSquare = 0;
+                }else if(newSquare<6 && currentPlayer.validMoves[0]){
+                    newSquare = 0;
+                }
+                }else if(newSquare<6 && !currentPlayer.validMoves[0]){
+                    newSquare = 1;
                 }
                 System.out.println(newSquare);
             }
-    }
 //    public void getPlayerData(){
 //        //IF IT IS PLAYER ONE'S TURN
 //        if(curTurn == TURN.ONE){

@@ -22,6 +22,7 @@ public class CheckerSquare {
     public static int[] black = {0,0,0};
     public boolean occupied = false;
     public PawnPiece curPawn;
+    public CheckersPlayer occupiedBy;
     public boolean highlight = false;
     
     
