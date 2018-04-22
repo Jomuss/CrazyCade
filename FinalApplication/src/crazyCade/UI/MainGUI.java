@@ -10,7 +10,7 @@ import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import crazyCade.gameLayer.checkers.CheckersManager;
+import crazyCade.gameLayer.checkers.CheckerManager;
 
 /**
  *
@@ -19,12 +19,12 @@ import crazyCade.gameLayer.checkers.CheckersManager;
 public class MainGUI extends javax.swing.JFrame {
      PongOnePlayerSelector pongOnePlayerWindow;
      PongTwoPlayerSelector pongTwoPlayerWindow;
-     CheckersManager checkers;
+     CheckerManager checkers;
     public MainGUI() throws IOException {
         initComponents();
         pongOnePlayerWindow = new PongOnePlayerSelector();
         pongTwoPlayerWindow = new PongTwoPlayerSelector();
-        checkers = new CheckersManager();
+        checkers = new CheckerManager();
         pongTwoPlayerWindow.getMainWindow(this);
 
 //        pongHandler = new PongOnePlayer();
@@ -139,7 +139,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PongOnePlayerActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        checkers.intialize();
+        checkers.initialize();
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**

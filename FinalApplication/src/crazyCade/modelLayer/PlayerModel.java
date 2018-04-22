@@ -168,7 +168,7 @@ public class PlayerModel {
         this.position = position;
     }
     
-    private void setArrays(){
+    private void setArrays(){    
         pongRecord = new int[2];
         checkersRecord = new int[2];
     }
