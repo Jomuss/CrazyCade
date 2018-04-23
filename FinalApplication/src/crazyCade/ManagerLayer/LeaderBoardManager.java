@@ -6,6 +6,7 @@
 package crazyCade.ManagerLayer;
 
 import crazyCade.modelLayer.LeaderBoardModel;
+import crazyCade.modelLayer.PlayerModel;
 
 /**
  *
@@ -27,6 +28,18 @@ public class LeaderBoardManager {
         overallLeaderboard.populateLeaderboardFromPlayerData(0);
         pongLeaderboard.populateLeaderboardFromPlayerData(1);
         checkersLeaderboard.populateLeaderboardFromPlayerData(2);
+    }
+    
+    public void update(int leaderBoardType, PlayerModel curPlayer){
+        if(leaderBoardType == 0){
+            overallLeaderboard.updateLeaderboard(leaderBoardType, curPlayer);
+        }
+        else if(leaderBoardType == 1){
+            pongLeaderboard.updateLeaderboard(leaderBoardType, curPlayer);
+        }
+        else{
+            checkersLeaderboard.updateLeaderboard(leaderBoardType, curPlayer);
+        }
     }
    
 }
