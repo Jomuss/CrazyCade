@@ -60,10 +60,14 @@ public class CheckerManager extends PApplet{
     public void gameOver(){
         if(playerOne.getPawnsAlive() == 0){
             JOptionPane.showMessageDialog(null, "Congratulations Player Two, you win!", "Yay!", 0);
+            dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Congratulations Player One, you win!", "Yay!", 0);
+            dispose();
         }
+        playerOne.gameOver();
+        playerTwo.gameOver();
         surface.setVisible(false);
     }
     public void noValidMovesNotif(){
@@ -182,6 +186,7 @@ public class CheckerManager extends PApplet{
             }
         }
         if(selectCurPawn){
+            checkForValidMoves();
             if(highlightLeft){
                 stroke(240, 240, 0);
                 fill(255, 0, 0);

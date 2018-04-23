@@ -100,5 +100,8 @@ public class CheckersPlayer {
     public int getPawnsAlive(){
         return this.pawnsAlive;
     }
+    public void gameOver(){
+        myPort.stop();
+    }
     
 }
