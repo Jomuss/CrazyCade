@@ -402,7 +402,7 @@ public class CheckerManager extends PApplet{
         }
         
         textSize(24);
-        fill(0,0,0);
+        fill(255,255,255);
         text("Current Turn: "+curTurn, 800, 30);
         textSize(20);
         text("Player One Score: "+playerOne.getPawnsAlive(), 800, 100);
