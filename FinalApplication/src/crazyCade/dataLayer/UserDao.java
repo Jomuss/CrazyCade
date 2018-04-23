@@ -26,24 +26,24 @@ public class UserDao {
         FileWriter fw = null;
         BufferedWriter bw = null;
         BufferedReader reader = null;
-        File userFile = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao" + i + ".txt");
+        File userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + i + ".txt");
         if(!newUser){
             while(userFile.exists()){
                 reader = new BufferedReader(new FileReader(userFile));
                 if(user.getUserName().equals(reader.readLine())){
-                    userFile = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + i + ".txt");
+                    userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + i + ".txt");
                     break;
                 }
                 else{
                     i++;
-                    userFile = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + i + ".txt");
+                    userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + i + ".txt");
                 }
             }
         }
         else{
             while(userFile.exists()){
                 i++;
-                userFile = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + i + ".txt");
+                userFile = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + i + ".txt");
             }
             userFile.createNewFile();
         }
@@ -89,7 +89,7 @@ public class UserDao {
         int[] checkersRecordArray = new int[2];
         int i = 0;
         int j = 0;
-        File file = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + j + ".txt");
+        File file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + j + ".txt");
         while(file.exists()){
             try{
                 reader = new BufferedReader(new FileReader(file));
@@ -97,7 +97,7 @@ public class UserDao {
                     break;
                 else {
                     j++; 
-                    file = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + j + ".txt");
+                    file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + j + ".txt");
                 }
             } catch(IOException e){
                 e.printStackTrace();
@@ -138,14 +138,14 @@ public class UserDao {
     
     public static void calculateUserCount(){
         int j = 0;
-        File file = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + j + ".txt");
+        File file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + j + ".txt");
         if(!file.exists()){
             userCount = 0;
         }
         else{
             while(file.exists()){
                 j++;
-                file = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + j + ".txt");
+                file = new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + j + ".txt");
             }
             userCount = j;
         }
