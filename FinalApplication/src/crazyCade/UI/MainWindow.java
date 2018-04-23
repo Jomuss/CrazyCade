@@ -7,7 +7,7 @@
 package crazyCade.UI;
 
 import crazyCade.dataLayer.UserDao;
-import crazyCade.gameLayer.checkers.Checkers;
+import crazyCade.gameLayer.checkers.CheckerManager;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import crazyCade.ManagerLayer.LeaderBoardManager;
 import crazyCade.modelLayer.PlayerModel;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class MainWindow extends javax.swing.JFrame {
     Boolean guest;
     static String username;
-    Checkers newCheckersGame;
+    CheckerManager newCheckersGame;
     PongTwoPlayerSelector p;
     static MainLeaderboard leaderBoard;
     CheckersLeaderboard checkerLeaderboard;
@@ -245,8 +245,8 @@ public class MainWindow extends javax.swing.JFrame {
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        newCheckersGame = new Checkers();
-        newCheckersGame.intialize();
+        newCheckersGame = new CheckerManager();
+        newCheckersGame.initialize();
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
