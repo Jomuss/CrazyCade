@@ -85,10 +85,6 @@ public class MainWindow extends javax.swing.JFrame {
         checkersLeaderboardBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         mainLeaderboard1 = new crazyCade.UI.MainLeaderboard();
-        winCheckersBtn = new javax.swing.JButton();
-        loseCheckersBtn = new javax.swing.JButton();
-        winPongBtn = new javax.swing.JButton();
-        losePongBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,34 +136,6 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 232, Short.MAX_VALUE)
         );
 
-        winCheckersBtn.setText("Win Checkers");
-        winCheckersBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                winCheckersBtnActionPerformed(evt);
-            }
-        });
-
-        loseCheckersBtn.setText("Lose Checkers");
-        loseCheckersBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loseCheckersBtnActionPerformed(evt);
-            }
-        });
-
-        winPongBtn.setText("Win Pong");
-        winPongBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                winPongBtnActionPerformed(evt);
-            }
-        });
-
-        losePongBtn.setText("Lose Pong");
-        losePongBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                losePongBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,12 +149,8 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(winCheckersBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(loseCheckersBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(checkersPlayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(checkersPlayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                                     .addComponent(pongPlayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -197,15 +161,8 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(winPongBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(losePongBtn)))))
+                        .addGap(147, 147, 147)
+                        .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -230,13 +187,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(winCheckersBtn)
-                    .addComponent(loseCheckersBtn)
-                    .addComponent(winPongBtn)
-                    .addComponent(losePongBtn))
-                .addContainerGap())
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -285,34 +236,6 @@ public class MainWindow extends javax.swing.JFrame {
         checkerLeaderboard.setVisible(true);
         checkerLeaderboard.repaintPanel();
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
-
-    private void winCheckersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winCheckersBtnActionPerformed
-        // TODO add your handling code here:
-        MainWindow.curUser.addToCheckersWins();
-        this.leaderboardsUpdate("Checkers");
-        this.setOverallWinsLabel();
-    }//GEN-LAST:event_winCheckersBtnActionPerformed
-
-    private void loseCheckersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loseCheckersBtnActionPerformed
-        // TODO add your handling code here:
-        MainWindow.curUser.playerLost(false);
-        this.leaderboardsUpdate("Checkers");
-        this.setOverallWinsLabel();
-    }//GEN-LAST:event_loseCheckersBtnActionPerformed
-
-    private void winPongBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winPongBtnActionPerformed
-        // TODO add your handling code here:
-        MainWindow.curUser.addToPongWins();
-        this.leaderboardsUpdate("Pong");
-        this.setOverallWinsLabel();
-    }//GEN-LAST:event_winPongBtnActionPerformed
-
-    private void losePongBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_losePongBtnActionPerformed
-        // TODO add your handling code here:
-        MainWindow.curUser.playerLost(true);
-        this.leaderboardsUpdate("Pong");
-        this.setOverallWinsLabel();
-    }//GEN-LAST:event_losePongBtnActionPerformed
     
     private void winCheckers(){
         // TODO add your handling code here:
@@ -408,13 +331,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton checkersPlayBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton logoutBtn;
-    private javax.swing.JButton loseCheckersBtn;
-    private javax.swing.JButton losePongBtn;
     private crazyCade.UI.MainLeaderboard mainLeaderboard1;
     private javax.swing.JButton pongLeaderboardBtn;
     private javax.swing.JButton pongPlayBtn;
     private javax.swing.JLabel scoreLabel;
-    private javax.swing.JButton winCheckersBtn;
-    private javax.swing.JButton winPongBtn;
     // End of variables declaration//GEN-END:variables
 }
