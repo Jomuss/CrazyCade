@@ -132,6 +132,10 @@ public class CheckersLeaderboard extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void repaintPanel(){
+        this.checkerLeaderboardPanel1.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

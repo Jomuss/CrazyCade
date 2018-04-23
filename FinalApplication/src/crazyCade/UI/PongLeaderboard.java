@@ -131,6 +131,10 @@ public class PongLeaderboard extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void repaintPanel(){
+        this.pongLeaderboardPanel1.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

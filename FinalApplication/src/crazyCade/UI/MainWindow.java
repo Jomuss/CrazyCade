@@ -7,8 +7,10 @@
 package crazyCade.UI;
 
 import crazyCade.dataLayer.UserDao;
-import crazyCade.gameLayer.checkers.CheckerManager;
+import crazyCade.gameLayer.checkers.Checkers;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
+import crazyCade.ManagerLayer.LeaderBoardManager;
+import crazyCade.modelLayer.PlayerModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -22,23 +24,29 @@ import java.util.logging.Logger;
 public class MainWindow extends javax.swing.JFrame {
     Boolean guest;
     static String username;
-    CheckerManager newCheckersGame;
+    Checkers newCheckersGame;
     PongTwoPlayerSelector p;
     static MainLeaderboard leaderBoard;
     CheckersLeaderboard checkerLeaderboard;
     PongLeaderboard pongLeaderboard;
+    public static LeaderBoardManager manager;
+    private int guestWins;
+    public static PlayerModel curUser;
      
     /**
      * Creates new form MainWindow
      */
     public MainWindow(Boolean guest) {
         initComponents();
+        manager = new LeaderBoardManager();
         leaderBoard = new MainLeaderboard();
         this.guest = guest;
         if(!guest)
-            scoreLabel.setText(String.valueOf(LoginWindow.curUser.getOverallWins()));
-        else
-            scoreLabel.setText("0");
+            scoreLabel.setText(String.valueOf(MainWindow.curUser.getOverallWins()));
+        else{
+            this.guestWins = 0;
+            scoreLabel.setText(String.valueOf(guestWins));
+        }
         // Possibly a guest subclass for the guests score
     }
     
@@ -48,16 +56,16 @@ public class MainWindow extends javax.swing.JFrame {
         g.setColor(Color.orange);
         g.setFont(new Font("Serif", Font.ITALIC, 38));
         if(!guest)
-            g.drawString(LoginWindow.curUser.getUserName(), 259, 90);
+            g.drawString(curUser.getUserName(), 250, 90);
         else 
-            g.drawString("Guest", 259, 90);
+            g.drawString("Guest", 250, 90);
         g.setColor(Color.blue);
         g.drawString("Pong", 90, 185);
         g.setColor(Color.red);
         g.drawString("Checkers", 65, 300);
         g.setFont(new Font("Serif", Font.BOLD, 25));
         g.setColor(Color.green);
-        g.drawString("Overall Leaderboard", 360, 160);
+        g.drawString("Overall Leaderboard", 364, 160);
     }
 
     /**
@@ -77,10 +85,10 @@ public class MainWindow extends javax.swing.JFrame {
         checkersLeaderboardBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         mainLeaderboard1 = new crazyCade.UI.MainLeaderboard();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        winCheckersBtn = new javax.swing.JButton();
+        loseCheckersBtn = new javax.swing.JButton();
+        winPongBtn = new javax.swing.JButton();
+        losePongBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,31 +140,31 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 232, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Win Checkers");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        winCheckersBtn.setText("Win Checkers");
+        winCheckersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                winCheckersBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Lose Checkers");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        loseCheckersBtn.setText("Lose Checkers");
+        loseCheckersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                loseCheckersBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Win Pong");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        winPongBtn.setText("Win Pong");
+        winPongBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                winPongBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Lose Pong");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        losePongBtn.setText("Lose Pong");
+        losePongBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                losePongBtnActionPerformed(evt);
             }
         });
 
@@ -170,18 +178,12 @@ public class MainWindow extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(winCheckersBtn)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(loseCheckersBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(checkersPlayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,16 +191,21 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(pongLeaderboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(checkersLeaderboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(checkersLeaderboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(147, 147, 147)
                                 .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(winPongBtn)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4)))))
+                                .addComponent(losePongBtn)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -225,10 +232,10 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(mainLeaderboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(winCheckersBtn)
+                    .addComponent(loseCheckersBtn)
+                    .addComponent(winPongBtn)
+                    .addComponent(losePongBtn))
                 .addContainerGap())
         );
 
@@ -238,17 +245,17 @@ public class MainWindow extends javax.swing.JFrame {
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        newCheckersGame = new CheckerManager();
-        newCheckersGame.initialize();
+        newCheckersGame = new Checkers();
+        newCheckersGame.intialize();
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        if(guest)
+        if(guest.equals(true))
             System.exit(0);
         else{
             try {
-                UserDao.addUser(LoginWindow.curUser, false);
+                UserDao.addUser(MainWindow.curUser, false);
                 System.exit(0);
             } catch(IOException e){
                 Logger.getLogger(SignUpWindow.class.getName()).log(Level.SEVERE, null, e);
@@ -268,35 +275,72 @@ public class MainWindow extends javax.swing.JFrame {
         this.setVisible(false);
         pongLeaderboard = new PongLeaderboard(this);
         pongLeaderboard.setVisible(true);
+        pongLeaderboard.repaintPanel();
     }//GEN-LAST:event_pongLeaderboardBtnActionPerformed
 
     private void checkersLeaderboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersLeaderboardBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         checkerLeaderboard = new CheckersLeaderboard(this);
-        checkerLeaderboard.setVisible(true);      
+        checkerLeaderboard.setVisible(true);
+        checkerLeaderboard.repaintPanel();
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void winCheckersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winCheckersBtnActionPerformed
         // TODO add your handling code here:
-        LoginWindow.curUser.addToCheckersWins(1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        MainWindow.curUser.addToCheckersWins();
+        this.leaderboardsUpdate("Checkers");
+        this.setOverallWinsLabel();
+    }//GEN-LAST:event_winCheckersBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void loseCheckersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loseCheckersBtnActionPerformed
         // TODO add your handling code here:
-        LoginWindow.curUser.playerLost(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        MainWindow.curUser.playerLost(false);
+        this.leaderboardsUpdate("Checkers");
+        this.setOverallWinsLabel();
+    }//GEN-LAST:event_loseCheckersBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void winPongBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winPongBtnActionPerformed
         // TODO add your handling code here:
-        LoginWindow.curUser.addToPongWins(1);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        MainWindow.curUser.addToPongWins();
+        this.leaderboardsUpdate("Pong");
+        this.setOverallWinsLabel();
+    }//GEN-LAST:event_winPongBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void losePongBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_losePongBtnActionPerformed
         // TODO add your handling code here:
-        LoginWindow.curUser.playerLost(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+        MainWindow.curUser.playerLost(true);
+        this.leaderboardsUpdate("Pong");
+        this.setOverallWinsLabel();
+    }//GEN-LAST:event_losePongBtnActionPerformed
+    
+    private void winCheckers(){
+        // TODO add your handling code here:
+        MainWindow.curUser.addToCheckersWins();
+        this.leaderboardsUpdate("Checkers");
+        this.setOverallWinsLabel();
+    }
+    
+    private void loseCheckers(){
+        MainWindow.curUser.playerLost(false);
+        this.leaderboardsUpdate("Checkers");
+        this.setOverallWinsLabel();
+    }
+    
+    private void winPong(){
+        // TODO add your handling code here:
+        MainWindow.curUser.addToPongWins();
+        this.leaderboardsUpdate("Pong");
+        this.setOverallWinsLabel();
+    }
+    
+    private void losePong(){
+        //TODO add your handling code here:
+        MainWindow.curUser.playerLost(true);
+        this.leaderboardsUpdate("Pong");
+        this.setOverallWinsLabel();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -339,19 +383,38 @@ public class MainWindow extends javax.swing.JFrame {
     public static MainLeaderboard getLeaderboardObject(){
         return leaderBoard;
     }
+    
+    private void leaderboardsUpdate(String typeUpdate){
+        manager.update(0, MainWindow.curUser);
+        mainLeaderboard1.repaint();
+        if(typeUpdate.equals("Pong")) 
+            manager.update(2, MainWindow.curUser);
+        else 
+            manager.update(1, MainWindow.curUser);
+    }
+    
+    private void setOverallWinsLabel(){
+        if(guest.equals(true)){
+            this.guestWins++;
+            scoreLabel.setText(String.valueOf(guestWins));
+        }
+        else{
+            scoreLabel.setText(String.valueOf(MainWindow.curUser.getOverallWins()));
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkersLeaderboardBtn;
     private javax.swing.JButton checkersPlayBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton loseCheckersBtn;
+    private javax.swing.JButton losePongBtn;
     private crazyCade.UI.MainLeaderboard mainLeaderboard1;
     private javax.swing.JButton pongLeaderboardBtn;
     private javax.swing.JButton pongPlayBtn;
     private javax.swing.JLabel scoreLabel;
+    private javax.swing.JButton winCheckersBtn;
+    private javax.swing.JButton winPongBtn;
     // End of variables declaration//GEN-END:variables
 }

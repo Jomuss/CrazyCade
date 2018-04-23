@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 public class LoginWindow extends javax.swing.JFrame {
     JPasswordField p;
     MainWindow main;
-    static PlayerModel curUser;
     /**
      * Creates new form LoginWindow
      */
@@ -143,12 +142,12 @@ public class LoginWindow extends javax.swing.JFrame {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
         String username = usernameText.getText();
-        curUser = UserDao.getUser(username);
-        UserDao.calculateUserCount();
-        curUser.declareCurPlayer();
-        if(curUser != null){
-            if(p.getText().equals(curUser.getPassword())){
-                this.setVisible(false);
+        MainWindow.curUser = UserDao.getUser(username);
+        if(MainWindow.curUser != null){
+            UserDao.calculateUserCount();
+            MainWindow.curUser.declareCurPlayer();
+            if(p.getText().equals(MainWindow.curUser.getPassword())){
+                this.setVisible(false);                
                 MainWindow.username = username;
                 main = new MainWindow(false);
                 main.setVisible(true);
