@@ -22,8 +22,7 @@ public class PlayerManager {
     private static final String host = "smtp.gmail.com";
     
     public PlayerManager(){
-        playerList = new ArrayList();
-        
+        playerList = new ArrayList();    
     }
     
     public static void emailNewUser(PlayerModel player){

@@ -22,6 +22,13 @@ public class WelcomeWindow extends javax.swing.JFrame {
      */
     public WelcomeWindow() {
         initComponents();
+        this.getContentPane().setBackground(new Color(238, 255, 3));
+        this.guestBtn.setBackground(Color.BLUE);
+        guestBtn.setForeground(Color.WHITE);
+        this.loginBtn.setBackground(Color.BLUE);
+        loginBtn.setForeground(Color.WHITE);
+        this.signUpBtn.setBackground(Color.BLUE);
+        signUpBtn.setForeground(Color.WHITE);
     }
 
     @Override
@@ -105,7 +112,7 @@ public class WelcomeWindow extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-        login = new LoginWindow();
+        login = new LoginWindow(true, main);
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_loginBtnActionPerformed
