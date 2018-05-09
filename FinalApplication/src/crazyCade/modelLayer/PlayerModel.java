@@ -27,7 +27,11 @@ public class PlayerModel {
     private double checkersWinPct;
     private double curWinPct;
     
-    public PlayerModel(String userName, String password, String email, int pongWins, int pongLosses, int checkersWins, int checkersLosses){
+//    public PlayerModel(){
+//
+//    }
+    
+      public PlayerModel(String userName, String password, String email, int pongWins, int pongLosses, int checkersWins, int checkersLosses){
         this.userName = userName;
         this.password = password;
         this.email = email;

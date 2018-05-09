@@ -13,7 +13,6 @@ import java.util.Random;
 
 
 
-
 /**
  *
  * @author     Joe Moss
@@ -51,7 +50,7 @@ public class PongOnePlayer extends PApplet{
     public PongOnePlayer(){
         rand = new Random();
         AIpad = new AIPaddle();
-//        ball = new Ball();
+        ball = new Ball();
         PlayerScore = new PlayerScore();
         AIScore = new AIScore();
         playerPaddle = new PlayerOnePaddle(this);

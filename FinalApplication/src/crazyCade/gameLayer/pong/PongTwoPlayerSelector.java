@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public class PongTwoPlayerSelector extends javax.swing.JFrame {
     private PongTwoPlayer pongHandler;
-    public crazyCade.UI.MainWindow mainGUI;
+    private crazyCade.UI.MainGUI mainGUI;
 
     public static String difficulty = "easy";
     public static int red = 255, green = 255, blue = 255, AIred = 255, AIgreen = 255, AIblue = 255, AIpadHeight = 50;
@@ -24,7 +24,7 @@ public class PongTwoPlayerSelector extends javax.swing.JFrame {
        
         initComponents();
     }
-    public void getMainWindow(crazyCade.UI.MainWindow main){
+    public void getMainWindow(crazyCade.UI.MainGUI main){
         mainGUI = main;
     }
 //    public static void setSelVis(PongOnePlayerSelector inst, boolean state){

@@ -29,7 +29,7 @@ public class  PlayerTwoPaddle extends PongPaddle{
     }
     public int getMove(){
         if(started == false){
-            this.myPort = new Serial(instance, Serial.list()[3], 9600);
+            this.myPort = new Serial(instance, Serial.list()[1], 9600);
             
             started = true;
         }
@@ -41,7 +41,9 @@ public class  PlayerTwoPaddle extends PongPaddle{
         while(myPort.available() > 0){
             newByte = myPort.read();
             if(newByte != -1){
-
+                //code for removing last character found here; https://www.leveluplunch.com/java/examples/remove-last-character-from-string/
+//                String alteredByte = newByte.substring(0, newByte.length() - 2);
+//                pentValue = Integer.valueOf(alteredByte);
                 newY = (int) (newByte * 1.4);
 //                println(alteredByte);
                 System.out.println(newY);
