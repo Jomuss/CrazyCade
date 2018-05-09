@@ -30,7 +30,7 @@ public class  PlayerOnePaddle extends PongPaddle{
     }
     public int getMove(){
         if(started == false){
-            this.myPort = new Serial(instance, Serial.list()[0], 9600);
+            this.myPort = new Serial(instance, Serial.list()[2], 9600);
             
             started = true;
         }

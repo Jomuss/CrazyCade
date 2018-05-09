@@ -28,7 +28,7 @@ public class CheckersPlayer {
     }
     
     public void initializePawns(){
-        if(this.portNum == 0){
+        if(this.portNum == 2){
             this.playerNum = 1;
             for(int i=0; i<8; i++){
                 for(int j=5; j<8; j++){
@@ -57,12 +57,16 @@ public class CheckersPlayer {
     }
     
     public int getValue(){
+        for(int i=0; i<Serial.list().length;i++){
+            System.out.println(Serial.list()[i]);
+        }
         //If the Player has not yet had their first turn/innitiated contact with the Arduino
         if(started == false){
-            this.myPort = new Serial(inst, Serial.list()[portNum], 9600);
+            this.myPort = new Serial(this.inst, Serial.list()[this.portNum], 9600);
             started = true;
         }
-        this.myPort.write('C');
+        char c = 'C';
+        this.myPort.write(c);
         //Let the Arduino know that the game being played is chess
         
         while(myPort.available() > 0){

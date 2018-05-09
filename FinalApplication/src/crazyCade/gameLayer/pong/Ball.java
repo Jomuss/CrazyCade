@@ -14,20 +14,27 @@ public class Ball {
     int ballX = 75, ballY = 75, ballDiameter = 30, ballRadius = 15;
     int ballSpeedX = (rand.nextInt(1)+4), ballSpeedY = (rand.nextInt(2)-4);
     int red = rand.nextInt(256), green = rand.nextInt(256), blue = rand.nextInt(256);
-    
+    PongTwoPlayer handler;
+    public Ball(PongTwoPlayer handler){
+        this.handler=handler;
+    }
     void ballMovement(PlayerOnePaddle playerPaddle, AIPaddle AIpad, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
         if(ballX > playerPaddle.playerPadX - 10 && ballX < playerPaddle.playerPadX + playerPaddle.padWidth){
             if(ballY >= playerPaddle.padY && ballY <= playerPaddle.padY + playerPaddle.padHeight){
-                if(ballSpeedX > 0)
+                if(ballSpeedX > 0){
                     ballSpeedX = -ballSpeedX;
+                    handler.playHitSound();
+                }
             }
         }
 //        if(ballX + ballRadius > width)
 //            ballSpeedX = -ballSpeedX;
         if(ballX-10 < AIpad.AIpadX + AIpad.padWidth && ballX > AIpad.AIpadX){
             if(ballY >= AIpad.AIpadY && ballY <= AIpad.AIpadY + PongOnePlayerSelector.AIpadHeight)
-                if(ballSpeedX < 0)
+                if(ballSpeedX < 0){
                     ballSpeedX = -ballSpeedX;
+                    handler.playHitSound();
+                }
         }
     
 
@@ -56,8 +63,10 @@ public class Ball {
         void ballMovement(PlayerOnePaddle playerPaddle, PlayerTwoPaddle playerTwoPaddle, int height, int width, AIScore AIScore, PlayerScore PlayerScore){
         if(ballX > playerPaddle.playerPadX - 10 && ballX < playerPaddle.playerPadX + playerPaddle.padWidth){
             if(ballY >= playerPaddle.padY && ballY <= playerPaddle.padY + playerPaddle.padHeight){
-                if(ballSpeedX > 0)
+                if(ballSpeedX > 0){
                     ballSpeedX = -ballSpeedX;
+                    handler.playHitSound();
+                }
             }
         }
 //        if(ballX + ballRadius > width)
@@ -65,8 +74,10 @@ public class Ball {
 
         if(ballX-10 < playerTwoPaddle.playerPadX + playerTwoPaddle.padWidth && ballX > playerTwoPaddle.playerPadX){
             if(ballY >= playerTwoPaddle.padY && ballY <= playerTwoPaddle.padY + playerTwoPaddle.padHeight)
-                if(ballSpeedX < 0)
+                if(ballSpeedX < 0){
                     ballSpeedX = -ballSpeedX;
+                    handler.playHitSound();
+                }
         }
          if(ballY > height-15){
             ballSpeedY = -ballSpeedY;

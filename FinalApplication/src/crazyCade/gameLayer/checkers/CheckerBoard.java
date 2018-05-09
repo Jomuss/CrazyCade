@@ -18,6 +18,12 @@ public class CheckerBoard {
         intitializeBoard();
         
     }
+    public static CheckerBoard getInstance(){
+        if(theInstance == null){
+            theInstance = new CheckerBoard();
+        }
+        return theInstance;
+    }
     private void intitializeBoard(){
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
@@ -26,16 +32,18 @@ public class CheckerBoard {
         }
         
     }
-    public static CheckerBoard getInstance(){
-        if(theInstance == null){
-            theInstance = new CheckerBoard();
-        }
-        return theInstance;
-    }
+    
     public static int[][] getBoard(){
         if(theInstance == null){
             theInstance = new CheckerBoard();
         }
         return theInstance.checkerBoard;
+    }
+    public static void resetBoard(){
+        for(int i=0; i<7; i++){
+            for(int j=0; j<7; j++){
+                CheckerBoard.getBoard()[i][j] = 0;
+            }
+        }
     }
 }

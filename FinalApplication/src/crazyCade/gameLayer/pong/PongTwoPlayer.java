@@ -10,6 +10,10 @@ package crazyCade.gameLayer.pong;
 import processing.core.PApplet;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import crazyCade.UI.MainWindow;
+import java.io.*;
+import javax.sound.sampled.*;
+
 
 
 
@@ -30,14 +34,12 @@ public class PongTwoPlayer extends PApplet{
     static PongTwoPlayerSelector playerTwoSelector;
     PlayerScore PlayerScore;
     AIScore playerTwoScore;
-
-//    private int ballX = 75, ballY = 75, ballDiameter = 30, ballRadius = 15;
-//    private int ballSpeedX = (rand.nextInt(2)+2), ballSpeedY = (rand.nextInt(2)-4);
-//    private int padHeight = 50, padWidth = 20, playerPadX, playerTwoPaddl = 50;
-//    private int AIpadX = 5, AIpadY = 50, AICount = 0, AImaxCount = 15, AISpeed;
-//    private double moveProb = .75;
+    AudioInputStream ais;
+    String fileName;
     private int pentValue;
     int newY = 0;
+    File hitSoundFile;
+    Clip hitSound;
     
     /**
      * @param args the command line arguments
@@ -45,20 +47,46 @@ public class PongTwoPlayer extends PApplet{
     public PongTwoPlayer(){
         rand = new Random();
         playerTwoPaddle = new PlayerTwoPaddle(this);
-        ball = new Ball();
+        ball = new Ball(this);
         PlayerScore = new PlayerScore();
         playerTwoScore = new AIScore();
         playerOnePaddle = new PlayerOnePaddle(this);
+        try{
+            loadSounds();
+        }catch(Exception e){
+            
+        }
+        
+        
 
         
 //        print(SerialHandler.list());
 //        myPort = new SerialHandler(this, SerialHandler.list()[0], 9600);
           
     }
+    private void loadSounds()throws Exception{
+        // Hit Sound found at https://freesound.org/people/LloydEvans09/sounds/321802/
+        hitSoundFile = new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/soundFIles/hit.wav");
+        if(hitSoundFile.exists()){
+                ais = AudioSystem.getAudioInputStream(hitSoundFile.toURI().toURL());
+                hitSound = AudioSystem.getClip();
+                hitSound.open(ais);
+                hitSound.setFramePosition(0);
+        }else{
+            JOptionPane.showMessageDialog(frame, "Sounds could not be loaded");
+        }
+    }
+    public void playHitSound(){
+        hitSound.loop(0);
+        hitSound.start();
+        hitSound.setFramePosition(0);
+    }
 
     public PongTwoPlayer(PongTwoPlayerSelector selector){
+       
        PApplet.main("crazyCade.gameLayer.pong.PongTwoPlayer");
        playerTwoSelector = selector;
+       
     }
     public void initialize(PongTwoPlayerSelector selector){
 
@@ -70,12 +98,17 @@ public class PongTwoPlayer extends PApplet{
         surface.setVisible(false);
     }
     private void playerOneWin(){
-       JOptionPane.showMessageDialog(frame, "Congratulations Player One, You Win!");
-       endGame();
+        endGame();
+       JOptionPane.showMessageDialog(frame, "Congratulations "+MainWindow.curUser.getUserName()+", You Win!");
+       playerTwoSelector.mainGUI.winPong();
+       
     }
+    
     private void playerTwoWin(){
+        endGame();
        JOptionPane.showMessageDialog(frame, "Congratulations Player Two, You Win!");
-       endGame();
+       playerTwoSelector.mainGUI.losePong();
+       
     }
         
     public void settings(){
