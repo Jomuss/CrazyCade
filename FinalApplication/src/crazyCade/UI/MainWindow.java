@@ -211,6 +211,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
+
         this.setVisible(false);        
         try{
             newCheckersGame = new CheckerManager();
@@ -233,6 +234,7 @@ public class MainWindow extends javax.swing.JFrame {
             newCheckersGame = new CheckerManager();
             newCheckersGame.initialize();
         }
+
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -259,7 +261,7 @@ public class MainWindow extends javax.swing.JFrame {
         pongPlayed = true;
         if(!guest){
             JOptionPane.showMessageDialog(this, "Have your opponent sign in on the next screen!");
-            LoginWindow secondPlayerLogin = new LoginWindow(false, this);
+            LoginWindow secondPlayerLogin = new LoginWindow();
             this.setVisible(false);
             secondPlayerLogin.setVisible(true);
         }
@@ -297,20 +299,19 @@ public class MainWindow extends javax.swing.JFrame {
 
 
 
-    private void winCheckers(){
-        winner.addToCheckersWins();
+
+ 
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
     
 
 
-    loseCheckers(){
-         parent of 8b79a83... new
+
+    private void loseCheckers(){
         MainWindow.curUser.playerLost(false);
     }
-
-    private void loseCheckers(PlayerModel loser){
+    private void winPong(){
         // TODO add your handling code here:
         loser.playerLost(false);
 
@@ -318,12 +319,15 @@ public class MainWindow extends javax.swing.JFrame {
         this.setOverallWinsLabel();
 
 
-    public void losePong(){
 
-    }
+  
+    
     private void losePong(PlayerModel loser){
 
-        //TODO add your handling code here:
+    }
+    
+    private void losePong(){
+
         loser.playerLost(true);
         this.leaderboardsUpdate("Pong");
         this.setOverallWinsLabel();

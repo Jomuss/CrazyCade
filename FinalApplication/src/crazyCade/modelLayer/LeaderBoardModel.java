@@ -36,8 +36,8 @@ public class LeaderBoardModel {
         for(int k = 0; k < UserDao.userCount; k++){
             try{
 
-                BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + k + ".txt")));
 
+                BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + k + ".txt")));
                 line = reader.readLine();
                 while(line != null){
                     userComponents.add(line);
