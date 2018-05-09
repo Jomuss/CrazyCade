@@ -10,6 +10,7 @@ import crazyCade.dataLayer.UserDao;
 import crazyCade.gameLayer.checkers.Checkers;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import crazyCade.ManagerLayer.LeaderBoardManager;
+import crazyCade.gameLayer.checkers.CheckerManager;
 import crazyCade.modelLayer.PlayerModel;
 import java.awt.Color;
 import java.awt.Font;
@@ -210,12 +211,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
+        this.setVisible(false);        
         try{
-            newCheckersGame = new CheckerManager(this);
+            newCheckersGame = new CheckerManager();
             newCheckersGame.initialize();
         }catch(Exception e){
             throw new RuntimeException("Could not start Checkers");
@@ -226,24 +224,15 @@ public class MainWindow extends javax.swing.JFrame {
         pongPlayed = false;
         if(!guest){
             JOptionPane.showMessageDialog(this, "Have your opponent sign in on the next screen!");
-            LoginWindow secondPlayerLogin = new LoginWindow(false, this);
+            LoginWindow secondPlayerLogin = new LoginWindow();
             this.setVisible(false);
             secondPlayerLogin.setVisible(true);
         }
         else{
             this.setVisible(false);
-            newCheckersGame = new CheckerManager(this);
+            newCheckersGame = new CheckerManager();
             newCheckersGame.initialize();
         }
-
-=======
-        newCheckersGame = new Checkers();
-        newCheckersGame.intialize();
->>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
-=======
-        newCheckersGame = new Checkers();
-        newCheckersGame.intialize();
->>>>>>> parent of 8b79a83... new
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -298,8 +287,7 @@ public class MainWindow extends javax.swing.JFrame {
         checkerLeaderboard.repaintPanel();
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
     
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
     public void winCheckers(){
         
@@ -307,28 +295,18 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void winCheckers(PlayerModel winner){
 
-=======
+
+
     private void winCheckers(){
->>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
-=======
-    private void winCheckers(){
->>>>>>> parent of 8b79a83... new
-        // TODO add your handling code here:
         winner.addToCheckersWins();
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
     
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    public void loseCheckers(){
-=======
-    private void loseCheckers(){
->>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
-=======
-    private void loseCheckers(){
->>>>>>> parent of 8b79a83... new
+
+    loseCheckers(){
+         parent of 8b79a83... new
         MainWindow.curUser.playerLost(false);
     }
 
@@ -338,39 +316,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
-    }
-<<<<<<< HEAD
 
- 
-    private void winPong(PlayerModel winner){
-
-=======
-    
-    private void winPong(){
-<<<<<<< HEAD
->>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
-=======
->>>>>>> parent of 8b79a83... new
-        // TODO add your handling code here:
-        winner.addToPongWins();
-        this.leaderboardsUpdate("Pong");
-        this.setOverallWinsLabel();
-    }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     public void losePong(){
 
     }
     private void losePong(PlayerModel loser){
-=======
-    
-    private void losePong(){
->>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
-=======
-    
-    private void losePong(){
->>>>>>> parent of 8b79a83... new
+
         //TODO add your handling code here:
         loser.playerLost(true);
         this.leaderboardsUpdate("Pong");
