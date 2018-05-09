@@ -7,7 +7,7 @@
 package crazyCade.UI;
 
 import crazyCade.dataLayer.UserDao;
-import crazyCade.gameLayer.checkers.CheckerManager;
+import crazyCade.gameLayer.checkers.Checkers;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import crazyCade.ManagerLayer.LeaderBoardManager;
 import crazyCade.modelLayer.PlayerModel;
@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     Boolean guest;
     static String username;
-    CheckerManager newCheckersGame;
+    Checkers newCheckersGame;
     PongTwoPlayerSelector p;
     static MainLeaderboard leaderBoard;
     CheckersLeaderboard checkerLeaderboard;
@@ -211,6 +211,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void checkersPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkersPlayBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+<<<<<<< HEAD
         
         try{
             newCheckersGame = new CheckerManager(this);
@@ -234,6 +235,10 @@ public class MainWindow extends javax.swing.JFrame {
             newCheckersGame.initialize();
         }
 
+=======
+        newCheckersGame = new Checkers();
+        newCheckersGame.intialize();
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -255,7 +260,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.setVisible(false);
         p = new PongTwoPlayerSelector();
-        p.getMainWindow(this);
         p.setVisible(true);
 
         pongPlayed = true;
@@ -289,6 +293,7 @@ public class MainWindow extends javax.swing.JFrame {
         checkerLeaderboard.repaintPanel();
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
     
+<<<<<<< HEAD
 
     public void winCheckers(){
         
@@ -296,14 +301,21 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void winCheckers(PlayerModel winner){
 
+=======
+    private void winCheckers(){
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
         // TODO add your handling code here:
         winner.addToCheckersWins();
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
     
+<<<<<<< HEAD
 
     public void loseCheckers(){
+=======
+    private void loseCheckers(){
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
         MainWindow.curUser.playerLost(false);
     }
 
@@ -314,20 +326,30 @@ public class MainWindow extends javax.swing.JFrame {
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
+<<<<<<< HEAD
 
  
     private void winPong(PlayerModel winner){
 
+=======
+    
+    private void winPong(){
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
         // TODO add your handling code here:
         winner.addToPongWins();
         this.leaderboardsUpdate("Pong");
         this.setOverallWinsLabel();
     }
+<<<<<<< HEAD
 
     public void losePong(){
 
     }
     private void losePong(PlayerModel loser){
+=======
+    
+    private void losePong(){
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
         //TODO add your handling code here:
         loser.playerLost(true);
         this.leaderboardsUpdate("Pong");
@@ -381,9 +403,9 @@ public class MainWindow extends javax.swing.JFrame {
         manager.update(0, MainWindow.curUser);
         mainLeaderboard1.repaint();
         if(typeUpdate.equals("Pong")) 
-            manager.update(1, MainWindow.curUser);
-        else 
             manager.update(2, MainWindow.curUser);
+        else 
+            manager.update(1, MainWindow.curUser);
     }
     
     private void setOverallWinsLabel(){

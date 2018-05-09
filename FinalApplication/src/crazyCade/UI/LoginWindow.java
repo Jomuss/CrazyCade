@@ -7,11 +7,13 @@ package crazyCade.UI;
 
 import crazyCade.modelLayer.PlayerModel;
 import crazyCade.dataLayer.UserDao;
+<<<<<<< HEAD
 import crazyCade.gameLayer.checkers.CheckerManager;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
+=======
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,20 +23,11 @@ import javax.swing.JOptionPane;
 public class LoginWindow extends javax.swing.JFrame {
     JPasswordField p;
     MainWindow main;
-    private static Boolean mainUser;
     /**
      * Creates new form LoginWindow
      */
-    public LoginWindow(Boolean mainUser, MainWindow main) {
+    public LoginWindow() {
         initComponents();
-        this.getContentPane().setBackground(new Color(238, 255, 3));
-        this.showPassWBox.setBackground(new Color(238, 255, 3));
-        submitBtn.setBackground(Color.BLUE);
-        submitBtn.setForeground(Color.WHITE);
-        cancelBtn.setBackground(Color.BLUE);
-        cancelBtn.setForeground(Color.WHITE);
-        this.main = main;
-        LoginWindow.mainUser = mainUser;
         p = new JPasswordField();
         this.add(p);
         p.setBounds(86, 86, 100, 20);
@@ -148,19 +141,16 @@ public class LoginWindow extends javax.swing.JFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
          // TODO add your handling code here:
          this.setVisible(false);
-         if(mainUser)
-            StartingWindows.welcomeScreen.setVisible(true);
-         else 
-             main.setVisible(true);
+         StartingWindows.welcomeScreen.setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        PlayerModel tempModel;
         String username = usernameText.getText();
-        tempModel = UserDao.getUser(username);
-        if(tempModel != null){
+        MainWindow.curUser = UserDao.getUser(username);
+        if(MainWindow.curUser != null){
             UserDao.calculateUserCount();
+<<<<<<< HEAD
             tempModel.declareCurPlayer();
             if(p.getText().equals(tempModel.getPassword())){
                 if(mainUser){
@@ -182,6 +172,14 @@ public class LoginWindow extends javax.swing.JFrame {
                         main.newCheckersGame.initialize();
                     }
                 }
+=======
+            MainWindow.curUser.declareCurPlayer();
+            if(p.getText().equals(MainWindow.curUser.getPassword())){
+                this.setVisible(false);                
+                MainWindow.username = username;
+                main = new MainWindow(false);
+                main.setVisible(true);
+>>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
             }
             else
                 JOptionPane.showMessageDialog(this, "Your password is not correct");
@@ -225,7 +223,7 @@ public class LoginWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginWindow(null, null).setVisible(true);
+                new LoginWindow().setVisible(true);
             }
         });
     }

@@ -8,7 +8,6 @@ package crazyCade.UI;
 import crazyCade.ManagerLayer.PlayerManager;
 import crazyCade.modelLayer.PlayerModel;
 import crazyCade.dataLayer.UserDao;
-import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,12 +31,6 @@ public class SignUpWindow extends javax.swing.JFrame {
      */
     public SignUpWindow() {
         initComponents();
-        this.getContentPane().setBackground(new Color(238, 255, 3));
-        changePassWBox.setBackground(new Color(238, 255, 3));
-        submitBtn.setBackground(Color.BLUE);
-        submitBtn.setForeground(Color.WHITE);
-        cancelBtn.setBackground(Color.BLUE);
-        cancelBtn.setForeground(Color.WHITE);
         creP = new JPasswordField();
         confP = new JPasswordField();
         this.add(creP);

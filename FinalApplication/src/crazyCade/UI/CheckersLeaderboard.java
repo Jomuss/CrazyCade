@@ -22,10 +22,6 @@ public class CheckersLeaderboard extends javax.swing.JFrame {
      */
     public CheckersLeaderboard(MainWindow curMain) {
         initComponents();
-        this.getContentPane().setBackground(new Color(238, 255, 3));
-        checkerLeaderboardPanel1.setBackground(new Color(0, 255, 222));        
-        backBtn.setBackground(Color.BLUE);
-        backBtn.setForeground(Color.WHITE);
         this.curMain = curMain;
     }
     

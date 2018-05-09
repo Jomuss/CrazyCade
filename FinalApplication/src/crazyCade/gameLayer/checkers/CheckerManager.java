@@ -7,9 +7,6 @@ package crazyCade.gameLayer.checkers;
 
 import javax.swing.JOptionPane;
 import processing.core.PApplet;
-import java.io.*;
-import javax.sound.sampled.*;
-
 
 /**
  *
@@ -19,7 +16,6 @@ public class CheckerManager extends PApplet{
 
     CheckersPlayer playerOne;
     CheckersPlayer playerTwo;
-    crazyCade.UI.MainWindow mainWindow;
     private int curTurn;
     private final int ONE = 1;
     private final int TWO = 2;
@@ -28,16 +24,11 @@ public class CheckerManager extends PApplet{
     private int rightMoveCoordinates[];
     public boolean selectCurPawn, highlightLeft, highlightRight, jumpLeft, jumpRight;
     private int curPawnCoordinates[];
-    private File checkerFile;
-    private Clip checkerSound;
-    AudioInputStream ais;
-    String fileName;
     
     
-    
-    public CheckerManager(crazyCade.UI.MainWindow main){
-        playerOne = new CheckersPlayer(this, 2, this);
-        playerTwo = new CheckersPlayer(this, 3, this);
+    public CheckerManager(){
+        playerOne = new CheckersPlayer(this, 0, this);
+        playerTwo = new CheckersPlayer(this, 1, this);
         curTurn = ONE;
         selectedPawnCounter = 0;
         leftMoveCoordinates = new int[2];
@@ -48,27 +39,14 @@ public class CheckerManager extends PApplet{
         highlightRight = false;
         jumpLeft = false;
         jumpRight = false;
-        mainWindow = main;
-        fileName = "C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/soundFIles/land.wav";
-        try{
-            loadSounds();
-        }catch(Exception e){
-            throw new RuntimeException("Something went wrong");
-        }
-        
-        
-        
-//        mainWindow = main;
     }
     
     /**
      *
      */
     public void initialize() {
-        String[] args = {"crazyCade.gameLayer.checkers.CheckerManager"};
-        PApplet.runSketch(args, this);
+        PApplet.main("crazyCade.gameLayer.checkers.CheckerManager");
     }
-    
    
     @Override
     public void settings(){
@@ -79,45 +57,18 @@ public class CheckerManager extends PApplet{
     public void setup(){
 
     }
-    public void loadSounds()throws Exception{
-        try{
-            checkerFile = new File(fileName);
-             if(checkerFile.exists()){
-                ais = AudioSystem.getAudioInputStream(checkerFile.toURI().toURL());
-                checkerSound = AudioSystem.getClip();
-                checkerSound.open(ais);
-                checkerSound.setFramePosition(0);
-            }else{
-                throw new RuntimeException("Sound file not found at " + fileName);
-            }  
-        }catch(Exception e){
-            throw new RuntimeException("Could not load sound");
-        }
-        
-        
-    }
-    private void playCheckerSound(){
-        checkerSound.loop(0);
-        checkerSound.start();
-        checkerSound.setFramePosition(0);
-    }
     public void gameOver(){
-        dispose();
         if(playerOne.getPawnsAlive() == 0){
             JOptionPane.showMessageDialog(null, "Congratulations Player Two, you win!", "Yay!", 0);
-           
+            dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Congratulations Player One, you win!", "Yay!", 0);
-          
+            dispose();
         }
-        CheckerBoard.resetBoard();
-        
         playerOne.gameOver();
         playerTwo.gameOver();
-        checkerSound.close();
         surface.setVisible(false);
-        mainWindow.setVisible(true);
     }
     public void noValidMovesNotif(){
         JOptionPane.showMessageDialog(null, "There are no valid moves for this Pawn, please select another", "Oh No!", 0);
@@ -129,7 +80,6 @@ public class CheckerManager extends PApplet{
             curTurn = ONE;
     }
     public void movePawn(){
-        playCheckerSound();
         if(curTurn == ONE){
             if(highlightLeft){
                 CheckerBoard.getBoard()[leftMoveCoordinates[0]][leftMoveCoordinates[1]] = 1;
@@ -178,7 +128,6 @@ public class CheckerManager extends PApplet{
             }
         
         }
-        
         changeTurn();
     }
     private void drawBoard(){
@@ -278,8 +227,6 @@ public class CheckerManager extends PApplet{
                                         leftMoveCoordinates[0] = i-2;
                                         leftMoveCoordinates[1] = j-2;
                                         jumpLeft = true;
-                                    }else{
-                                        validMoves[0] = false;
                                     }
                                     
                                 }
@@ -312,8 +259,6 @@ public class CheckerManager extends PApplet{
                                         rightMoveCoordinates[0] = i+2;
                                         rightMoveCoordinates[1] = j-2;
                                         jumpRight = true;
-                                    }else{
-                                        validMoves[0] = false;
                                     }
                                     
                                 }else{
@@ -352,10 +297,7 @@ public class CheckerManager extends PApplet{
                                         leftMoveCoordinates[0] = i-2;
                                         leftMoveCoordinates[1] = j+2;
                                         jumpLeft = true;
-                                    }else{
-                                        validMoves[0] = false;
                                     }
-                                    
                                     
                                 }
                                 else{
@@ -387,10 +329,7 @@ public class CheckerManager extends PApplet{
                                         rightMoveCoordinates[0] = i+2;
                                         rightMoveCoordinates[1] = j+2;
                                         jumpRight = true;
-                                    }else{
-                                        validMoves[1] = false;
                                     }
-                                    
                                     
                                 }else{
                                     validMoves[1] = false;
@@ -473,7 +412,6 @@ public class CheckerManager extends PApplet{
         textSize(20);
         text("Player One Score: "+playerOne.getPawnsAlive(), 800, 100);
         text("Player Two Score: "+playerTwo.getPawnsAlive(), 800, 200);
-        
         
     }
     
