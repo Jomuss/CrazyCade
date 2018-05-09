@@ -17,6 +17,7 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Alex
@@ -32,12 +33,26 @@ public class MainWindow extends javax.swing.JFrame {
     public static LeaderBoardManager manager;
     private int guestWins;
     public static PlayerModel curUser;
+    private static PlayerModel secondPlayer;
+    public static Boolean pongPlayed;
      
     /**
      * Creates new form MainWindow
      */
     public MainWindow(Boolean guest) {
         initComponents();
+        this.getContentPane().setBackground(new Color(238, 255, 3));
+        pongPlayBtn.setBackground(Color.BLUE);
+        pongPlayBtn.setForeground(Color.WHITE);
+        checkersPlayBtn.setBackground(Color.BLUE);
+        checkersPlayBtn.setForeground(Color.WHITE);
+        pongLeaderboardBtn.setBackground(Color.BLUE);
+        pongLeaderboardBtn.setForeground(Color.WHITE);
+        checkersLeaderboardBtn.setBackground(Color.BLUE);
+        checkersLeaderboardBtn.setForeground(Color.WHITE);
+        logoutBtn.setBackground(Color.BLUE);
+        logoutBtn.setForeground(Color.WHITE);
+        mainLeaderboard1.setBackground(new Color(0, 255, 43));
         manager = new LeaderBoardManager();
         leaderBoard = new MainLeaderboard();
         this.guest = guest;
@@ -53,7 +68,7 @@ public class MainWindow extends javax.swing.JFrame {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        g.setColor(Color.orange);
+        g.setColor(Color.GREEN);
         g.setFont(new Font("Serif", Font.ITALIC, 38));
         if(!guest)
             g.drawString(curUser.getUserName(), 250, 90);
@@ -65,7 +80,7 @@ public class MainWindow extends javax.swing.JFrame {
         g.drawString("Checkers", 65, 300);
         g.setFont(new Font("Serif", Font.BOLD, 25));
         g.setColor(Color.green);
-        g.drawString("Overall Leaderboard", 364, 160);
+        g.drawString("Overall Leaderboard", 390, 185);
     }
 
     /**
@@ -205,6 +220,20 @@ public class MainWindow extends javax.swing.JFrame {
         }
         
         
+
+        pongPlayed = false;
+        if(!guest){
+            JOptionPane.showMessageDialog(this, "Have your opponent sign in on the next screen!");
+            LoginWindow secondPlayerLogin = new LoginWindow(false, this);
+            this.setVisible(false);
+            secondPlayerLogin.setVisible(true);
+        }
+        else{
+            this.setVisible(false);
+            newCheckersGame = new CheckerManager(this);
+            newCheckersGame.initialize();
+        }
+
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -223,10 +252,25 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void pongPlayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pongPlayBtnActionPerformed
         // TODO add your handling code here:
+
         this.setVisible(false);
         p = new PongTwoPlayerSelector();
         p.getMainWindow(this);
         p.setVisible(true);
+
+        pongPlayed = true;
+        if(!guest){
+            JOptionPane.showMessageDialog(this, "Have your opponent sign in on the next screen!");
+            LoginWindow secondPlayerLogin = new LoginWindow(false, this);
+            this.setVisible(false);
+            secondPlayerLogin.setVisible(true);
+        }
+        else{
+            this.setVisible(false);
+            p = new PongTwoPlayerSelector();
+            p.setVisible(true);
+        }
+
     }//GEN-LAST:event_pongPlayBtnActionPerformed
 
     private void pongLeaderboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pongLeaderboardBtnActionPerformed
@@ -245,29 +289,47 @@ public class MainWindow extends javax.swing.JFrame {
         checkerLeaderboard.repaintPanel();
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
     
+
     public void winCheckers(){
+        
+    }
+
+    private void winCheckers(PlayerModel winner){
+
         // TODO add your handling code here:
-        MainWindow.curUser.addToCheckersWins();
+        winner.addToCheckersWins();
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
     
+
     public void loseCheckers(){
         MainWindow.curUser.playerLost(false);
+    }
+
+    private void loseCheckers(PlayerModel loser){
+        // TODO add your handling code here:
+        loser.playerLost(false);
+
         this.leaderboardsUpdate("Checkers");
         this.setOverallWinsLabel();
     }
-    
-    public void winPong(){
+
+ 
+    private void winPong(PlayerModel winner){
+
         // TODO add your handling code here:
-        MainWindow.curUser.addToPongWins();
+        winner.addToPongWins();
         this.leaderboardsUpdate("Pong");
         this.setOverallWinsLabel();
     }
-    
+
     public void losePong(){
+
+    }
+    private void losePong(PlayerModel loser){
         //TODO add your handling code here:
-        MainWindow.curUser.playerLost(true);
+        loser.playerLost(true);
         this.leaderboardsUpdate("Pong");
         this.setOverallWinsLabel();
     }
@@ -332,6 +394,10 @@ public class MainWindow extends javax.swing.JFrame {
         else{
             scoreLabel.setText(String.valueOf(MainWindow.curUser.getOverallWins()));
         }
+    }
+    
+    public static void setSecondPlayer(PlayerModel secondPlayer){
+        MainWindow.secondPlayer = secondPlayer;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

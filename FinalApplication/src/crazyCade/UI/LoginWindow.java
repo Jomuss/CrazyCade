@@ -7,7 +7,7 @@ package crazyCade.UI;
 
 import crazyCade.modelLayer.PlayerModel;
 import crazyCade.dataLayer.UserDao;
-import crazyCade.gameLayer.checkers.Checkers;
+import crazyCade.gameLayer.checkers.CheckerManager;
 import crazyCade.gameLayer.pong.PongTwoPlayerSelector;
 import javax.swing.JPasswordField;
 import java.awt.Checkbox;
@@ -178,8 +178,8 @@ public class LoginWindow extends javax.swing.JFrame {
                         main.p.setVisible(true);
                     }
                     else{ 
-                        main.newCheckersGame = new Checkers();
-                        main.newCheckersGame.intialize();
+                        main.newCheckersGame = new CheckerManager(main);
+                        main.newCheckersGame.initialize();
                     }
                 }
             }
