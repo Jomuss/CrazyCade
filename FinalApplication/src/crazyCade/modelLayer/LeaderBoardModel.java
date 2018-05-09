@@ -37,6 +37,7 @@ public class LeaderBoardModel {
             try{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Joe Moss/Desktop/CrazyCade/FinalApplication/src/gameDao/user" + k + ".txt")));
 =======
                 BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/gameDao/user" + k + ".txt")));
@@ -44,6 +45,9 @@ public class LeaderBoardModel {
 =======
                 BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + k + ".txt")));
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+                BufferedReader reader = new BufferedReader(new FileReader(new File("C:/Users/Alex/Desktop/CrazyCade-origin (2)/CrazyCade-origin(real)/FinalApplication/src/crazyCade/gameDao/user" + k + ".txt")));
+>>>>>>> parent of 8b79a83... new
                 line = reader.readLine();
                 while(line != null){
                     userComponents.add(line);

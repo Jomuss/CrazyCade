@@ -212,6 +212,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
         
         try{
             newCheckersGame = new CheckerManager(this);
@@ -239,6 +240,10 @@ public class MainWindow extends javax.swing.JFrame {
         newCheckersGame = new Checkers();
         newCheckersGame.intialize();
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+        newCheckersGame = new Checkers();
+        newCheckersGame.intialize();
+>>>>>>> parent of 8b79a83... new
     }//GEN-LAST:event_checkersPlayBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -294,6 +299,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_checkersLeaderboardBtnActionPerformed
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public void winCheckers(){
         
@@ -304,6 +310,9 @@ public class MainWindow extends javax.swing.JFrame {
 =======
     private void winCheckers(){
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+    private void winCheckers(){
+>>>>>>> parent of 8b79a83... new
         // TODO add your handling code here:
         winner.addToCheckersWins();
         this.leaderboardsUpdate("Checkers");
@@ -311,11 +320,15 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public void loseCheckers(){
 =======
     private void loseCheckers(){
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+    private void loseCheckers(){
+>>>>>>> parent of 8b79a83... new
         MainWindow.curUser.playerLost(false);
     }
 
@@ -334,12 +347,16 @@ public class MainWindow extends javax.swing.JFrame {
 =======
     
     private void winPong(){
+<<<<<<< HEAD
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+>>>>>>> parent of 8b79a83... new
         // TODO add your handling code here:
         winner.addToPongWins();
         this.leaderboardsUpdate("Pong");
         this.setOverallWinsLabel();
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     public void losePong(){
@@ -350,6 +367,10 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void losePong(){
 >>>>>>> 20dd83d7e8002ebd16d903fb4344c11cccc25838
+=======
+    
+    private void losePong(){
+>>>>>>> parent of 8b79a83... new
         //TODO add your handling code here:
         loser.playerLost(true);
         this.leaderboardsUpdate("Pong");
